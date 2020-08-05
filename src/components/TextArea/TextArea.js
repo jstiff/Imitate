@@ -6,11 +6,9 @@ import reactDOM from "react-dom";
 
 class TextArea extends Component {
   // this component doesn't do much to start, just renders some user info to the DOM
+
   componentDidMount() {
     document.getElementsByTagName("pre")[0].focus();
-
-    let code = reactDOM.findDOMNode(this);
-    console.log("onload DOMnode", code);
     this.setState({
       keyValue: true,
     });
@@ -44,16 +42,17 @@ class TextArea extends Component {
     metrics: {
       correct: 0,
       wrong: 0,
-      lessonLength: this.props.lesson.length,
+      lessonScore: 0,
     },
   };
 
   sendMetrics = () => {
+    let { correct } = this.state.metrics;
+    let { wrong } = this.state.metrics;
     const results = {
-      percentCorrect:
-        this.props.lesson.length / this.state.metrics.correct -
-        this.state.metrics.wrong,
-      percentWrong: this.props.lesson.length / this.state.metrics.wrong,
+      percentCorrect: Math.round(
+        (parseInt(correct) / (parseInt(correct) + parseInt(wrong))) * 100
+      ),
     };
     //   this.props.dispatch({
     //       type: "RESULTS",
@@ -61,6 +60,11 @@ class TextArea extends Component {
     //   })
     console.log("metrics!!!!", this.state.metrics);
     console.log("results!!!!", results);
+    this.setState({
+      metrics: {
+        lessonScore: results.percentCorrect,
+      },
+    });
   };
 
   handleKeyPress = (event, index) => {
@@ -124,8 +128,8 @@ class TextArea extends Component {
               </span>
             );
           })}
-          <h3>{this.props.lesson.length}</h3>
         </pre>
+        <h1>Your score is: {this.state.metrics.lessonScore} %</h1>
         <button onClick={this.sendMetrics}>poop</button>
       </>
     );

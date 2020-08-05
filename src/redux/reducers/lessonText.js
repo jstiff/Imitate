@@ -1,4 +1,4 @@
-const lessonText = () => {
+const lessonText = (state = []) => {
   return [
     "t",
     "h",
