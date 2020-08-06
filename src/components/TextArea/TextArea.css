@@ -1,8 +1,10 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
 span {
   color: #fff;
   padding: 10px;
   display: inline-block;
   border-radius: 5px;
+  font-family: "Lato", sans-serif;
   animation: blinkingBackground 2s infinite;
 }
 @keyframes blinkingBackground {
@@ -21,4 +23,4 @@ span {
   100% {
     background-color: #0e262e;
   }
-}
+} */

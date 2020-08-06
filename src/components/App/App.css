@@ -1,49 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
+html,
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0px;
+  color: #54504e;
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  overflow: hidden;
+}
+span {
+  font-family: "Lato", sans-serif;
 }
 
 .alert {
-    background-color: #ff4545;
-    margin: 50px;
+  background-color: #ff4545;
+  margin: 50px;
 }
 
-form {
-    background-color: #dbd5d5;
-    width: 30%;
-    height: 250px;
-    margin: 20px auto;
-    padding: 25px;
-    border-radius: 2px;
-}
+/* form {
+  background-color: #dbd5d5;
+  width: 30%;
+  height: 250px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 2px;
+} */
 
 input {
-    margin: 5px;
-    margin-bottom: 10px;
+  margin: 5px;
+  margin-bottom: 10px;
 }
 
-.log-in, .log-out, .register {
+.log-in,
+.log-out,
+.register {
   background-color: #00acb0;
   border-radius: 4px;
   color: #f8f8f8;
   min-height: 50px;
   min-width: 100px;
-  outline:0;
+  outline: 0;
   cursor: pointer;
 }
 
-.log-in:hover, .log-out:hover, .register:hover {
+.log-in:hover,
+.log-out:hover,
+.register:hover {
   background-color: #008183;
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */
 .link-button {
-    background:none;
-    color:inherit;
-    border:none;
-    padding:0;
-    font: inherit;
-    outline:0;
-    border-bottom:1px solid #444; 
-    cursor: pointer;
+  background: #f36359;
+  border: none;
+  border-radius: 25px;
+  color: #ffffff;
+  padding: 5px 20px;
+  text-transform: none;
+  letter-spacing: 1px;
+  font-weight: 200;
+  cursor: pointer;
+  transition: all 300ms;
+}
+
+/* .registerButton {
+  padding: 19px 39px 18px 39px;
+  color: #fff;
+  background-color: #4bc970;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 40%;
+  border: 1px solid #3ac162;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+  margin-bottom: 10px;
+} */
+/* .registerInput {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #bab6b4;
+  padding: 5px;
+  font-size: 1em;
+  margin-bottom: 15px;
+} */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 2em;
+  text-align: left;
+  align-items: center;
+}
+.register-form input {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #bab6b4;
+  padding: 5px;
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+.register-form input:focus {
+  outline: none;
+  border-bottom: 2px solid #f36359;
+}
+.register-form-button {
+  background: #f36359;
+  border: none;
+  border-radius: 25px;
+  color: #ffffff;
+  padding: 15px 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 300ms;
+}
+.register-form-button:hover {
+  background: #f25146;
+}
+.register-form-button:focus {
+  outline: none;
+}
+.button-ghost {
+  background: transparent;
+  color: #f36359;
+  border: 2px solid #f25146;
+}
+.button-ghost:hover {
+  color: #ffffff;
+}
+.card {
+  background: rgba(255, 255, 255, 0.7);
+  position: relative;
+  z-index: 99;
+  width: 80%;
+  margin: auto;
+  margin-top: 5%;
+  text-align: center;
+}
+.container {
+  margin: 60px auto;
+  text-align: center;
+  border: 0.9px solid black;
+  border-radius: 4px;
+  width: 40%;
+  padding: 50px;
 }

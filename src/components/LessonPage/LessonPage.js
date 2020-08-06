@@ -1,13 +1,15 @@
-import React from 'react';
+import React from "react";
+import TextArea from "../TextArea/TextArea";
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is, so it doesn't need 'connect()'
 
-const InfoPage = () => (
+const LessonPage = () => (
   <div>
-    <p>Info Page</p>
+    <h1>Lesson Page</h1>
+    <TextArea />
   </div>
 );
 
@@ -26,4 +28,4 @@ class InfoPage extends React.Component {
   }
 }
 */
-export default InfoPage;
+export default LessonPage;

@@ -4,6 +4,7 @@
   display: inline-block;
   color: #f2f2f2;
   padding-left: 10px;
+  margin-left: 40px;
 }
 
 .nav {
@@ -16,25 +17,27 @@
 .nav-link {
   float: left;
   color: #f2f2f2;
-  background-color: #1e2d3f;
+  background-color: #122f52;
   text-align: center;
-  padding: 24px 10px;
+  padding: 7px 14px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 18px;
   margin-right: 55px;
-
+  border-radius: 10px;
+  margin-top: 20px;
   /* these last two make the logout button in
   the nav bar look like another link */
-  border: none;
+  border: 0.7px solid rgb(117, 90, 90);
   cursor: pointer;
   outline: 0;
 }
-.nav-right h4 {
+h4 {
   color: white;
   display: inline-block;
   position: absolute;
-  right: 45%;
-  top: 30%;
+  right: 60%;
+  top: 10%;
+  font-size: 18px;
 }
 
 .nav-link:hover {

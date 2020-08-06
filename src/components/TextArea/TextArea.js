@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import reactDOM from "react-dom";
-//import "./TextArea.css";
+import "./TextArea.css";
 
 class TextArea extends Component {
   // this component doesn't do much to start, just renders some user info to the DOM

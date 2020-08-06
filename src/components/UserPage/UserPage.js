@@ -33,7 +33,17 @@ class UserPage extends Component {
           <input onChange={this.handleChange} type="text" />
           <button onClick={this.handleClick}>Search user</button>
         </div>
-        <div>{this.props.gitHub}</div>
+        {/* <h1>{!null ? this.props.gitHub : this.props.poop}</h1> */}
+        <div>
+          {this.props.gitHub.map((repo) => (
+            <div>
+              <a href={repo.html_url}>{repo.name}</a>
+              <br />
+            </div>
+          ))}
+          {/* {JSON.stringify(this.props.gitHub)} */}
+          {/* <h1>{this.props.gitHub}</h1> */}
+        </div>
       </>
     );
   }
@@ -44,6 +54,7 @@ const mapStateToProps = (state) => ({
   user: state.user,
   lesson: state.lessonText,
   gitHub: state.apiReducer,
+  poop: "come on man!",
 });
 
 // this allows us to use <App /> in index.js
