@@ -28,13 +28,25 @@ class UserPage extends Component {
           {/* <h1 id="welcome">Welcome, {this.props.user.username}!</h1> */}
           {/* <p>Your ID is: {this.props.user.id}</p>
         <LogOutButton className="log-in" /> */}
+          <h2 className="homeWelcome">
+            Welcome {this.props.user.first_name},{" "}
+            <span style={{ marginLeft: "20px" }}></span>search GitHub for your
+            favorite developer!
+          </h2>
           <br />
-          <TextArea />
-          <input onChange={this.handleChange} type="text" />
-          <button onClick={this.handleClick}>Search user</button>
+          <div className="gitHubSearchContainer">
+            <input
+              className="apiSearchInput"
+              onChange={this.handleChange}
+              type="text"
+            />
+            <button className="register-form-button" onClick={this.handleClick}>
+              Search user
+            </button>
+          </div>
         </div>
         {/* <h1>{!null ? this.props.gitHub : this.props.poop}</h1> */}
-        <div>
+        <div className="apiResults">
           {this.props.gitHub.map((repo) => (
             <div>
               <a href={repo.html_url}>{repo.name}</a>

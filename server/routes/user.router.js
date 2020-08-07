@@ -31,6 +31,20 @@ router.post("/register", (req, res, next) => {
     .catch(() => res.sendStatus(500));
 });
 
+router.post("/score", (req, res, next) => {
+  console.log("router.POST", req.body);
+  console.log("user info", req.user);
+  const percent_correct = req.body.score;
+  const user_id = req.user.id;
+
+  const queryText =
+    'INSERT INTO "metrics" (percent_correct, user_id) VALUES ($1, $2) RETURNING id';
+  pool
+    .query(queryText, [percent_correct, user_id])
+    .then(() => res.sendStatus(201))
+    .catch(() => res.sendStatus(500));
+});
+
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful

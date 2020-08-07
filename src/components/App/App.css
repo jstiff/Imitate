@@ -60,6 +60,10 @@ input {
   cursor: pointer;
   transition: all 300ms;
 }
+.scoreContainer {
+  text-align: center;
+  padding: 40px;
+}
 
 /* .registerButton {
   padding: 19px 39px 18px 39px;
@@ -103,7 +107,7 @@ input {
   border-bottom: 2px solid #f36359;
 }
 .register-form-button {
-  background: #f36359;
+  background: #4b4a47;
   border: none;
   border-radius: 25px;
   color: #ffffff;
@@ -144,4 +148,40 @@ input {
   border-radius: 4px;
   width: 40%;
   padding: 50px;
+}
+.homeWelcome {
+  margin-left: 300px;
+  margin-top: 100px;
+}
+.gitHubSearchContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.apiSearchInput {
+  width: 200px;
+  padding: 15px;
+  border: 0.5px solid black;
+  border-radius: 25px;
+  background: transparent;
+  font-size: 16px;
+}
+.apiSearchInput:hover {
+  font-family: "Lato", sans-serif;
+  font-weight: 200;
+  width: 400px;
+  box-sizing: border-box;
+  border: 1.5px solid #ccc;
+  /* -webkit-transition: 0.5s; */
+  transition: 0.5s;
+  /* outline: none; */
+}
+input[type="text"] {
+  outline: none;
+}
+.apiResults {
+  text-align: center;
+  margin-top: 50px;
+  border-top: 0.5px solid black;
 }

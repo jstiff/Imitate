@@ -65,6 +65,10 @@ class TextArea extends Component {
         lessonScore: results.percentCorrect,
       },
     });
+    this.props.dispatch({
+      type: "ADD_SCORE",
+      payload: results.percentCorrect,
+    });
   };
 
   handleKeyPress = (event, index) => {
@@ -104,7 +108,7 @@ class TextArea extends Component {
   render() {
     return (
       <>
-        {JSON.stringify(this.state)}
+        {/* {JSON.stringify(this.state)} */}
 
         <pre
           contentEditable="true"
@@ -129,8 +133,12 @@ class TextArea extends Component {
             );
           })}
         </pre>
-        <h1>Your score is: {this.state.metrics.lessonScore} %</h1>
-        <button onClick={this.sendMetrics}>poop</button>
+        <div className="scoreContainer">
+          <h1> {this.state.metrics.lessonScore} %</h1>
+          <button className="register-form-button" onClick={this.sendMetrics}>
+            Calculate percent correct
+          </button>
+        </div>
       </>
     );
   }
