@@ -1,8 +1,14 @@
 const apiReducer = (state = [], action) => {
-  if (action.type === "LOAD_INTO_STORE") {
-    return action.payload;
+  switch (action.type) {
+    case "LOAD_INTO_STORE":
+      return action.payload;
+      break;
+    case "CLEAR_ON_LOGOUT":
+      return [];
+      break;
+    default:
+      return state;
   }
-  return state;
 };
 
 export default apiReducer;

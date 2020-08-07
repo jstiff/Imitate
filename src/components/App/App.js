@@ -22,6 +22,7 @@ import "./App.css";
 class App extends Component {
   componentDidMount() {
     this.props.dispatch({ type: "FETCH_USER" });
+    console.log("APP on mount", this.props);
   }
 
   render() {
