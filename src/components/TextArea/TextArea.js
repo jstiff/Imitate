@@ -148,6 +148,7 @@ class TextArea extends Component {
 const mapStateToProps = (state) => ({
   user: state.user,
   lesson: state.lessonText,
+  repos: state.reposReducer,
 });
 
 // this allows us to use <App /> in index.js

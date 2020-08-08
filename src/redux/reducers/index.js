@@ -4,6 +4,7 @@ import loginMode from "./loginModeReducer";
 import user from "./userReducer";
 import lessonText from "./lessonText";
 import apiReducer from "./apiReducer";
+import reposReducer from "./reposReducer";
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   user,
   lessonText,
   apiReducer,
+  reposReducer,
   // will have an id and username if someone is logged in
 });
 

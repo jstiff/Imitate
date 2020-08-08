@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import reactDOM from "react-dom";
 import TextArea from "../TextArea/TextArea";
@@ -8,6 +9,18 @@ class UserPage extends Component {
   // this component doesn't do much to start, just renders some user info to the DOM
   state = {
     input: "",
+    page1: false,
+    page2: false,
+  };
+  viewRepos = () => {
+    this.props.dispatch({
+      type: "GET_REPOS",
+      payload: this.props.gitHub.data.login,
+    });
+    this.setState({
+      page1: !this.props.gitHub.success,
+      page2: this.props.repos.load,
+    });
   };
   handleChange = (event) => {
     this.setState({
@@ -18,6 +31,9 @@ class UserPage extends Component {
     this.props.dispatch({
       type: "FETCH_GITHUB_USER",
       payload: this.state.userName,
+    });
+    this.setState({
+      page1: true,
     });
   };
 
@@ -40,7 +56,10 @@ class UserPage extends Component {
               onChange={this.handleChange}
               type="text"
             />
-            <button className="register-form-button" onClick={this.handleClick}>
+            <button
+              className="register-form-button button-ghost"
+              onClick={this.handleClick}
+            >
               Search user
             </button>
           </div>
@@ -56,17 +75,32 @@ class UserPage extends Component {
             </div>
           ))} */}
           {/* {JSON.stringify(this.props.gitHub)} */}
-          {this.props.gitHub.success ? (
+          {this.props.gitHub.success && !this.props.repos.load ? (
             <div className="gitHubCard">
               <h2>
                 {this.props.gitHub.data.name} has{" "}
                 {this.props.gitHub.data.public_repos} repositories to view.
                 Would you like to check any out?
               </h2>
-              <button className="register-form-button">yes</button>
+
+              <button onClick={this.viewRepos} className="register-form-button">
+                yes
+              </button>
+            </div>
+          ) : this.props.gitHub.success && this.props.repos.load ? (
+            <div className="reposContainer">
+              {this.props.repos.data.map((repo, index) => {
+                return (
+                  <h3>
+                    {this.props.gitHub.data.name} has {repo.open_issues_count}{" "}
+                    open issues for this repository which has a description of{" "}
+                    {repo.description}
+                  </h3>
+                );
+              })}
             </div>
           ) : (
-            <h1></h1>
+            <p></p>
           )}
         </div>
       </>
@@ -79,6 +113,9 @@ const mapStateToProps = (state) => ({
   user: state.user,
   lesson: state.lessonText,
   gitHub: state.apiReducer,
+  //name: state.apiReducer.data,
+  repos: state.reposReducer,
+  //githubUserName: state.apiReducer.data.login,
   poop: "come on man!",
 });
 
