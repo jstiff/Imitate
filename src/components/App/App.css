@@ -150,8 +150,8 @@ input {
   padding: 50px;
 }
 .homeWelcome {
-  margin-left: 300px;
-  margin-top: 100px;
+  margin-left: 70px;
+  margin-top: 70px;
 }
 .gitHubSearchContainer {
   align-items: center;
@@ -160,7 +160,7 @@ input {
   justify-content: center;
 }
 .apiSearchInput {
-  width: 200px;
+  width: 500px;
   padding: 15px;
   border: 0.5px solid black;
   border-radius: 25px;
@@ -169,8 +169,8 @@ input {
 }
 .apiSearchInput:hover {
   font-family: "Lato", sans-serif;
-  font-weight: 200;
-  width: 400px;
+  font-weight: 400;
+  width: 510px;
   box-sizing: border-box;
   border: 1.5px solid #ccc;
   /* -webkit-transition: 0.5s; */
@@ -181,7 +181,24 @@ input[type="text"] {
   outline: none;
 }
 .apiResults {
-  text-align: center;
-  margin-top: 50px;
-  border-top: 0.5px solid black;
+  margin: auto;
+}
+.repoContainer {
+  width: 30%;
+  border: 0.6px solid black;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 20px;
+}
+.resultsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.gitHubCard {
+  margin: 50px auto;
+  padding: 50px;
+  width: 200px;
+  border: 0.5px solid black;
+  border-radius: 10px;
 }

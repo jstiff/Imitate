@@ -30,7 +30,7 @@ class UserPage extends Component {
         <LogOutButton className="log-in" /> */}
           <h2 className="homeWelcome">
             Welcome {this.props.user.first_name},{" "}
-            <span style={{ marginLeft: "20px" }}></span>search GitHub for your
+            <span style={{ marginLeft: "10px" }}></span>search GitHub for your
             favorite developer!
           </h2>
           <br />
@@ -47,14 +47,27 @@ class UserPage extends Component {
         </div>
         {/* <h1>{!null ? this.props.gitHub : this.props.poop}</h1> */}
         <div className="apiResults">
-          {this.props.gitHub.map((repo) => (
-            <div>
-              <a href={repo.html_url}>{repo.name}</a>
+          {/* {this.props.gitHub.map((repo) => (
+            <div className="resultsContainer">
+              <div className="repoContainer">
+                <a href={repo.html_url}>{repo.name}</a>
+              </div>
               <br />
             </div>
-          ))}
+          ))} */}
           {/* {JSON.stringify(this.props.gitHub)} */}
-          {/* <h1>{this.props.gitHub}</h1> */}
+          {this.props.gitHub.success ? (
+            <div className="gitHubCard">
+              <h2>
+                {this.props.gitHub.data.name} has{" "}
+                {this.props.gitHub.data.public_repos} repositories to view.
+                Would you like to check any out?
+              </h2>
+              <button className="register-form-button">yes</button>
+            </div>
+          ) : (
+            <h1></h1>
+          )}
         </div>
       </>
     );
