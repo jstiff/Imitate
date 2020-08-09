@@ -11,8 +11,11 @@ router.post("/tree", rejectUnauthenticated, (req, res) => {
 
   Axios.get(tree)
     .then((response) => {
-      console.log("API REPOS", response.data);
-      res.send(response.data);
+      console.log("API REPOS", response.data.tree);
+      res.send({
+        loaded: true,
+        data: response.data.tree,
+      });
     })
     .catch((err) => {
       console.log("GITHUB API ERROR", err);
@@ -31,7 +34,7 @@ router.post("/repos", rejectUnauthenticated, (req, res) => {
       console.log("API REPOS", response.data);
       res.send({
         data: response.data,
-        load: true,
+        loaded: true,
       });
     })
     .catch((err) => {
@@ -52,7 +55,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     .then((response) => {
       console.log("gitHub RESPONDED!", response.data.name);
       res.send({
-        success: true,
+        loaded: true,
         data: response.data,
       });
     })

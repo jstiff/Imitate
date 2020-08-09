@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import reactDOM from "react-dom";
 import TextArea from "../TextArea/TextArea";
+import QuestionOne from "../QuestionOne/QuestionOne";
+import QuestionTwo from "../QuestionTwo/QuestionTwo";
+import QuestionThree from "../QuestionThree/QuestionThree";
 
 class UserPage extends Component {
   // this component doesn't do much to start, just renders some user info to the DOM
@@ -14,7 +17,6 @@ class UserPage extends Component {
   };
 
   grabTree = (event, repo) => {
-    console.log("clicked");
     this.props.dispatch({
       type: "GET_REPO_TREE",
       payload: {
@@ -46,9 +48,6 @@ class UserPage extends Component {
     return (
       <>
         <div>
-          {/* <h1 id="welcome">Welcome, {this.props.user.username}!</h1> */}
-          {/* <p>Your ID is: {this.props.user.id}</p>
-        <LogOutButton className="log-in" /> */}
           <h2 className="homeWelcome">
             Welcome {this.props.user.first_name},{" "}
             <span style={{ marginLeft: "10px" }}></span>search GitHub for your
@@ -71,44 +70,13 @@ class UserPage extends Component {
         </div>
 
         <div className="apiResults">
-          {this.props.gitHub.success && !this.props.repos.load ? (
-            <div className="gitHubCard">
-              <h2>
-                {this.props.gitHub.data.name} has{" "}
-                {this.props.gitHub.data.public_repos} repositories to view.
-                Would you like to check any out?
-              </h2>
-
-              <button onClick={this.viewRepos} className="register-form-button">
-                yes
-              </button>
-            </div>
-          ) : this.props.gitHub.success && this.props.repos.load ? (
-            <>
-              <h1>Choose one of these repositories</h1>
-              <div className="repoGrid">
-                {this.props.repos.data.map((repo, index) => {
-                  return (
-                    <div className="repoContainer">
-                      <h3>
-                        <div
-                          onClick={(event) => this.grabTree(event, repo.name)}
-                        >
-                          {repo.name}
-                          <br />
-                          {repo.description} <br />
-                          It was mostly written in {repo.language}
-                          <br />
-                        </div>
-                      </h3>
-                    </div>
-                  );
-                })}
-              </div>
-            </>
-          ) : (
-            <p></p>
-          )}
+          (this.props.gitHub.loaded && this.props.repos.loaded &&
+          this.props.repoFiles.loaded) ?
+          <QuestionThree />
+          : this.props.gitHub.loaded && this.props.repos.loaded ? (
+          <QuestionTwo />) : this.props.gitHub.loaded &&
+          !this.props.repos.loaded ? (
+          <QuestionOne />) :<p></p>
         </div>
       </>
     );
@@ -120,18 +88,7 @@ const mapStateToProps = (state) => ({
   user: state.user,
   lesson: state.lessonText,
   gitHub: state.apiReducer,
-  //name: state.apiReducer.data,
+  repoFiles: state.treeReducer,
   repos: state.reposReducer,
-  //githubUserName: state.apiReducer.data.login,
-  poop: "come on man!",
 });
-
-// this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(UserPage);
-
-// const add = (x)=> {
-//   return (y)=>{x + y}
-// }
-// add(5)(4) (y) =>{5 + y }     connect takes the mapStateToProps function and injects it into another function then calls that new function with UserPage as its argument.
-//           (4) => { 5 + 4}
-//                    9

@@ -47,6 +47,7 @@ function* getRepoTree(action) {
   try {
     console.log("REPO TREE", action.payload);
     const response = yield axios.post("/api/gitHub/tree", action.payload);
+    console.log("TREE", response.data.data);
     yield put({
       type: "LOAD_TREE",
       payload: response.data,
