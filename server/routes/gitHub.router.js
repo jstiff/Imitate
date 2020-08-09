@@ -6,9 +6,25 @@ const {
 } = require("../modules/authentication-middleware");
 require("dotenv").config();
 
+router.post("/tree", rejectUnauthenticated, (req, res) => {
+  const tree = `https://api.github.com/repos/${req.body.userName}/${req.body.repoName}/git/trees/master?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
+
+  Axios.get(tree)
+    .then((response) => {
+      console.log("API REPOS", response.data);
+      res.send(response.data);
+    })
+    .catch((err) => {
+      console.log("GITHUB API ERROR", err);
+      res.sendStatus(500);
+    });
+});
+
 router.post("/repos", rejectUnauthenticated, (req, res) => {
   console.log("REPOS ROUTE", req.body.userName);
   const repos = `https://api.github.com/users/${req.body.userName}/repos?per_page=5?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
+
+  const blob = `https://api.github.com/repos/${req.body.userName}/typing.io-clone/git/blobs/7ae08b964fe2c5511247fabf033f5f8b937abde6?client_id=f00efe0a15d0dd37c99d&client_secret=d4a42f22546157493f204551cbbf9bd`;
 
   Axios.get(repos)
     .then((response) => {
@@ -29,6 +45,8 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const testGetRepo = `https://api.github.com/repos/jstiff/typing.io-clone/contents/sourceCode.txt?client_id=f00efe0a15d0dd37c99d&client_secret=d4a42f22546157493f204551cbbf9bd`;
 
   const substack = `https://api.github.com/repos/${req.body.userName}/node-falafel/contents/index.js`;
+
+  const blob = `https://api.github.com/repos/${req.body.userName}/typing.io-clone/git/blobs/7ae08b964fe2c5511247fabf033f5f8b937abde6?client_id=f00efe0a15d0dd37c99d&client_secret=d4a42f22546157493f204551cbbf9bd`;
 
   Axios.get(userInfo)
     .then((response) => {

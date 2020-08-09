@@ -9,17 +9,25 @@ class UserPage extends Component {
   // this component doesn't do much to start, just renders some user info to the DOM
   state = {
     input: "",
-    page1: false,
-    page2: false,
+    // page1: false,
+    // page2: false,
   };
+
+  grabTree = (event, repo) => {
+    console.log("clicked");
+    this.props.dispatch({
+      type: "GET_REPO_TREE",
+      payload: {
+        userName: this.props.gitHub.data.login,
+        repoName: repo,
+      },
+    });
+  };
+
   viewRepos = () => {
     this.props.dispatch({
       type: "GET_REPOS",
       payload: this.props.gitHub.data.login,
-    });
-    this.setState({
-      page1: !this.props.gitHub.success,
-      page2: this.props.repos.load,
     });
   };
   handleChange = (event) => {
@@ -27,13 +35,10 @@ class UserPage extends Component {
       userName: event.target.value,
     });
   };
-  handleClick = () => {
+  sendUserName = () => {
     this.props.dispatch({
       type: "FETCH_GITHUB_USER",
       payload: this.state.userName,
-    });
-    this.setState({
-      page1: true,
     });
   };
 
@@ -58,23 +63,14 @@ class UserPage extends Component {
             />
             <button
               className="register-form-button button-ghost"
-              onClick={this.handleClick}
+              onClick={this.sendUserName}
             >
               Search user
             </button>
           </div>
         </div>
-        {/* <h1>{!null ? this.props.gitHub : this.props.poop}</h1> */}
+
         <div className="apiResults">
-          {/* {this.props.gitHub.map((repo) => (
-            <div className="resultsContainer">
-              <div className="repoContainer">
-                <a href={repo.html_url}>{repo.name}</a>
-              </div>
-              <br />
-            </div>
-          ))} */}
-          {/* {JSON.stringify(this.props.gitHub)} */}
           {this.props.gitHub.success && !this.props.repos.load ? (
             <div className="gitHubCard">
               <h2>
@@ -88,17 +84,28 @@ class UserPage extends Component {
               </button>
             </div>
           ) : this.props.gitHub.success && this.props.repos.load ? (
-            <div className="reposContainer">
-              {this.props.repos.data.map((repo, index) => {
-                return (
-                  <h3>
-                    {this.props.gitHub.data.name} has {repo.open_issues_count}{" "}
-                    open issues for this repository which has a description of{" "}
-                    {repo.description}
-                  </h3>
-                );
-              })}
-            </div>
+            <>
+              <h1>Choose one of these repositories</h1>
+              <div className="repoGrid">
+                {this.props.repos.data.map((repo, index) => {
+                  return (
+                    <div className="repoContainer">
+                      <h3>
+                        <div
+                          onClick={(event) => this.grabTree(event, repo.name)}
+                        >
+                          {repo.name}
+                          <br />
+                          {repo.description} <br />
+                          It was mostly written in {repo.language}
+                          <br />
+                        </div>
+                      </h3>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
           ) : (
             <p></p>
           )}
