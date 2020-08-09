@@ -9,11 +9,10 @@ import QuestionTwo from "../QuestionTwo/QuestionTwo";
 import QuestionThree from "../QuestionThree/QuestionThree";
 
 class UserPage extends Component {
-  // this component doesn't do much to start, just renders some user info to the DOM
+  Question;
+
   state = {
     input: "",
-    // page1: false,
-    // page2: false,
   };
 
   grabTree = (event, repo) => {
@@ -68,16 +67,21 @@ class UserPage extends Component {
             </button>
           </div>
         </div>
+        {/* <div className="apiResults">{this.Question()}</div> */}
 
-        <div className="apiResults">
-          (this.props.gitHub.loaded && this.props.repos.loaded &&
-          this.props.repoFiles.loaded) ?
+        {this.props.gitHub.loaded &&
+        this.props.repos.loaded &&
+        this.props.repoFiles.loaded ? (
           <QuestionThree />
-          : this.props.gitHub.loaded && this.props.repos.loaded ? (
-          <QuestionTwo />) : this.props.gitHub.loaded &&
-          !this.props.repos.loaded ? (
-          <QuestionOne />) :<p></p>
-        </div>
+        ) : this.props.gitHub.loaded &&
+          this.props.repos.loaded &&
+          !this.props.repoFiles.loaded ? (
+          <QuestionTwo />
+        ) : this.props.gitHub.loaded &&
+          !this.props.repos.loaded &&
+          !this.props.repoFiles.loaded ? (
+          <QuestionOne />
+        ) : null}
       </>
     );
   }

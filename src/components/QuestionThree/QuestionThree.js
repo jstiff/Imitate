@@ -6,10 +6,10 @@ class QuestionThree extends Component {
     return (
       <>
         <div>
-          {JSON.stringify(this.props.repoFiles)}
-          {/* {this.props.repoFiles.data.map((file) => {
+          {/* {JSON.stringify(this.props.repoFiles)} */}
+          {this.props.repoFiles.data.map((file) => {
             return <p>{file.path}</p>;
-          })} */}
+          })}
         </div>
         )
       </>

@@ -17,6 +17,7 @@ class QuestionTwo extends Component {
       <>
         <h1>Choose one of these repositories</h1>
         <div className="repoGrid">
+          {/* {JSON.stringify(this.props.repos.data)} */}
           {this.props.repos.data.map((repo, index) => {
             return (
               <div className="repoContainer">
