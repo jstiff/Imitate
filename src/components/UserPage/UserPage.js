@@ -37,6 +37,9 @@ class UserPage extends Component {
     });
   };
   sendUserName = () => {
+    // this.props.dispatch({
+    //   type: "CLEAR_FOR_NEWUSER",
+    // });
     this.props.dispatch({
       type: "FETCH_GITHUB_USER",
       payload: this.state.userName,
@@ -67,18 +70,23 @@ class UserPage extends Component {
             </button>
           </div>
         </div>
+        {true ? JSON.stringify(this.props.gitHub) : null}
+        {this.props.content.loaded ? (
+          <h1>{JSON.stringify(this.props.content.data.content)}</h1>
+        ) : (
+          <h1>False is loaded yo</h1>
+        )}
         {/* <div className="apiResults">{this.Question()}</div> */}
-
-        {this.props.gitHub.loaded &&
-        this.props.repos.loaded &&
+        {this.props.gitHubUser.loaded &&
+        this.props.userRepos.loaded &&
         this.props.repoFiles.loaded ? (
           <QuestionThree />
-        ) : this.props.gitHub.loaded &&
-          this.props.repos.loaded &&
+        ) : this.props.gitHubUser.loaded &&
+          this.props.userRepos.loaded &&
           !this.props.repoFiles.loaded ? (
           <QuestionTwo />
-        ) : this.props.gitHub.loaded &&
-          !this.props.repos.loaded &&
+        ) : this.props.gitHubUser.loaded &&
+          !this.props.userRepos.loaded &&
           !this.props.repoFiles.loaded ? (
           <QuestionOne />
         ) : null}
@@ -91,8 +99,9 @@ class UserPage extends Component {
 const mapStateToProps = (state) => ({
   user: state.user,
   lesson: state.lessonText,
-  gitHub: state.apiReducer,
+  gitHubUser: state.apiReducer,
+  userRepos: state.reposReducer,
   repoFiles: state.treeReducer,
-  repos: state.reposReducer,
+  content: state.contentReducer,
 });
 export default connect(mapStateToProps)(UserPage);

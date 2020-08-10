@@ -1,8 +1,16 @@
-const treeReducer = (state = [], action) => {
-  if (action.type === "LOAD_TREE") {
-    return action.payload;
+const treeReducer = (state = { load: false }, action) => {
+  switch (action.type) {
+    case "LOAD_TREE_INTO_STATE":
+      return action.payload;
+      break;
+    case "CLEAR_ON_LOGOUT":
+      return [];
+      break;
+    case "CLEAR_FOR_NEWUSER":
+      return [];
+    default:
+      return state;
   }
-  return state;
 };
 
 export default treeReducer;

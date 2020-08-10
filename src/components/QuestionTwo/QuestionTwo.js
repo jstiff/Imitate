@@ -18,7 +18,7 @@ class QuestionTwo extends Component {
         <h1>Choose one of these repositories</h1>
         <div className="repoGrid">
           {/* {JSON.stringify(this.props.repos.data)} */}
-          {this.props.repos.data.map((repo, index) => {
+          {this.props.userRepos.data.map((repo, index) => {
             return (
               <div className="repoContainer">
                 <div onClick={(event) => this.grabTree(event, repo.name)}>
@@ -40,8 +40,8 @@ const mapStateToProps = (state) => ({
   user: state.user,
   lesson: state.lessonText,
   gitHub: state.apiReducer,
-  repoFiles: state.treeReducer,
-  repos: state.reposReducer,
+  //repoFiles: state.treeReducer,
+  userRepos: state.reposReducer,
 });
 
 export default connect(mapStateToProps)(QuestionTwo);

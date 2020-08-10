@@ -1,8 +1,16 @@
-const reposReducer = (state = [], action) => {
-  if (action.type === "LOAD_REPOS") {
-    return action.payload;
+const reposReducer = (state = { load: false }, action) => {
+  switch (action.type) {
+    case "LOAD_REPOS_INTO_STATE":
+      return action.payload;
+      break;
+    case "CLEAR_ON_LOGOUT":
+      return [];
+      break;
+    case "CLEAR_FOR_NEWUSER":
+      return [];
+    default:
+      return state;
   }
-  return state;
 };
 
 export default reposReducer;

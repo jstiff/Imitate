@@ -6,6 +6,26 @@ const {
 } = require("../modules/authentication-middleware");
 require("dotenv").config();
 
+router.post("/content", rejectUnauthenticated, (req, res) => {
+  console.log("BEFORE aXIOS ", req.body.url);
+  const content_url = `${req.body.url}?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
+
+  Axios.get(content_url)
+    .then((response) => {
+      console.log("content response", response.data);
+      // const buffer = new Buffer.from(response.data.content, "base64");
+      // const lessonText = buffer.toString("ascii");
+      // console.log(lessonText);
+      res.send({
+        loaded: true,
+        data: response.data,
+      });
+    })
+    .catch((err) => {
+      console.log("error in AXIOS_CONTENT", err);
+    });
+});
+
 router.post("/tree", rejectUnauthenticated, (req, res) => {
   const tree = `https://api.github.com/repos/${req.body.userName}/${req.body.repoName}/git/trees/master?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
 

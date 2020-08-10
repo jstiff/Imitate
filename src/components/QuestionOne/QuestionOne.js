@@ -27,9 +27,7 @@ class QuestionOne extends Component {
 }
 const mapStateToProps = (state) => ({
   user: state.user,
-  lesson: state.lessonText,
+  //lesson: state.lessonText,
   gitHub: state.apiReducer,
-  repoFiles: state.treeReducer,
-  repos: state.reposReducer,
 });
 export default connect(mapStateToProps)(QuestionOne);
