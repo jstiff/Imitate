@@ -1,4 +1,4 @@
-const contentReducer = (state = [], action) => {
+const contentReducer = (state = { loaded: false }, action) => {
   switch (action.type) {
     case "LOAD_CONTENT_INTO_STATE":
       return action.payload;

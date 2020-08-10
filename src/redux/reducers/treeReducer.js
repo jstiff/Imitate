@@ -1,4 +1,4 @@
-const treeReducer = (state = { load: false }, action) => {
+const treeReducer = (state = { loaded: false }, action) => {
   switch (action.type) {
     case "LOAD_TREE_INTO_STATE":
       return action.payload;

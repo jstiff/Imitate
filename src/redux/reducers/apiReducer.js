@@ -4,7 +4,7 @@
 //   treeState: null,
 // };
 
-const apiReducer = (state = { load: false }, action) => {
+const apiReducer = (state = { loaded: false }, action) => {
   switch (action.type) {
     case "LOAD_USER_STATE":
       return action.payload;

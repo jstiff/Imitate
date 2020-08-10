@@ -116,22 +116,24 @@ class TextArea extends Component {
           style={this.style}
           onKeyDown={(event) => this.handleKeyPress(event, this.state.keyIndex)}
         >
-          {this.props.lesson.map((letter, index) => {
-            return (
-              <span
-                style={
-                  this.state.keyValue && index === this.state.keyIndex
-                    ? this.styleCorrect
-                    : !this.state.keyValue && index === this.state.keyIndex
-                    ? this.styleWrong
-                    : this.styleStart
-                }
-                id={index}
-              >
-                {letter}
-              </span>
-            );
-          })}
+          {this.props.lesson.loaded
+            ? this.props.lesson.data.map((letter, index) => {
+                return (
+                  <span
+                    style={
+                      this.state.keyValue && index === this.state.keyIndex
+                        ? this.styleCorrect
+                        : !this.state.keyValue && index === this.state.keyIndex
+                        ? this.styleWrong
+                        : this.styleStart
+                    }
+                    id={index}
+                  >
+                    {letter}
+                  </span>
+                );
+              })
+            : null}
         </pre>
         <div className="scoreContainer">
           <h1> {this.state.metrics.lessonScore} %</h1>
@@ -147,8 +149,9 @@ class TextArea extends Component {
 // Instead of taking everything from state, we just want the user info.
 const mapStateToProps = (state) => ({
   user: state.user,
-  lesson: state.lessonText,
+  //lesson: state.lessonText,
   repos: state.reposReducer,
+  lesson: state.contentReducer,
 });
 
 // this allows us to use <App /> in index.js

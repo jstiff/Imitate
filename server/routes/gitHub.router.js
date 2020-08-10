@@ -12,13 +12,14 @@ router.post("/content", rejectUnauthenticated, (req, res) => {
 
   Axios.get(content_url)
     .then((response) => {
-      console.log("content response", response.data);
-      // const buffer = new Buffer.from(response.data.content, "base64");
-      // const lessonText = buffer.toString("ascii");
-      // console.log(lessonText);
+      const buffer = new Buffer.from(response.data.content, "base64");
+      const lessonText = buffer.toString("ascii");
+      const lessonArray = lessonText.split("");
+      console.log("ASCKII", lessonArray);
+
       res.send({
         loaded: true,
-        data: response.data,
+        data: lessonArray,
       });
     })
     .catch((err) => {

@@ -1,4 +1,4 @@
-const reposReducer = (state = { load: false }, action) => {
+const reposReducer = (state = { loaded: false }, action) => {
   switch (action.type) {
     case "LOAD_REPOS_INTO_STATE":
       return action.payload;

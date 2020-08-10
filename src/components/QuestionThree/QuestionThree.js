@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class QuestionThree extends Component {
   getRepoContent = (url) => {
@@ -15,14 +16,16 @@ class QuestionThree extends Component {
           {/* {JSON.stringify(this.props.repoFiles)} */}
           {this.props.repoFiles.data.map((file) => {
             return (
-              <div
-                onClick={() => this.getRepoContent(file.url)}
-                className="gitHubCard"
-              >
-                <p>{file.path}</p>
-                <br />
-                <p>{file.url}</p>
-              </div>
+              <Link to={"/lesson"}>
+                <div
+                  onClick={() => this.getRepoContent(file.url)}
+                  className="gitHubCard"
+                >
+                  <p>{file.path}</p>
+                  <br />
+                  <p>{file.url}</p>
+                </div>
+              </Link>
             );
           })}
         </div>
