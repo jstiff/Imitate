@@ -15,7 +15,7 @@ class TextArea extends Component {
   }
   style = {
     border: "1px solid black",
-    height: "200px",
+    height: "auto",
     margin: "60px",
     padding: "30px",
   };
