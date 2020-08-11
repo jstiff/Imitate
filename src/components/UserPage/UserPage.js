@@ -37,9 +37,7 @@ class UserPage extends Component {
     });
   };
   sendUserName = () => {
-    // this.props.dispatch({
-    //   type: "CLEAR_FOR_NEWUSER",
-    // });
+    this.props.dispatch({ type: "CLEAR_ON_LOGOUT" });
     this.props.dispatch({
       type: "FETCH_GITHUB_USER",
       payload: this.state.userName,

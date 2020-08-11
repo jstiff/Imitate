@@ -16,6 +16,7 @@ class TextArea extends Component {
   style = {
     border: "1px solid black",
     height: "auto",
+    width: "auto",
     margin: "60px",
     padding: "30px",
   };
@@ -54,12 +55,7 @@ class TextArea extends Component {
         (parseInt(correct) / (parseInt(correct) + parseInt(wrong))) * 100
       ),
     };
-    //   this.props.dispatch({
-    //       type: "RESULTS",
-    //       payload: this.state.metrics
-    //   })
-    console.log("metrics!!!!", this.state.metrics);
-    console.log("results!!!!", results);
+
     this.setState({
       metrics: {
         lessonScore: results.percentCorrect,

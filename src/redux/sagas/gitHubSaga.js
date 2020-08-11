@@ -31,9 +31,11 @@ function* getUserRepos(action) {
       headers: { Accept: "application/vnd.github-blob.raw" },
     };
     console.log("getUser repos Saga has recieved", action.payload, config);
+
     const response = yield axios.post("/api/gitHub/repos", {
       userName: action.payload,
     });
+
     console.log("Blob-raw", response);
     yield put({
       type: "LOAD_REPOS_INTO_STATE",
