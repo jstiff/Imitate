@@ -106,11 +106,12 @@ input {
   border-bottom: 2px solid #f36359;
 }
 .register-form-button {
+  margin: 20px auto;
   background: #4b4a47;
   border: none;
   border-radius: 25px;
   color: #ffffff;
-  padding: 15px 50px;
+  padding: 15px 25px;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 300;
@@ -157,9 +158,10 @@ input {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 25px;
 }
 .apiSearchInput {
-  width: 500px;
+  width: 600px;
   padding: 15px;
   border: 0.5px solid black;
   border-radius: 25px;
@@ -168,10 +170,10 @@ input {
 }
 .apiSearchInput:hover {
   font-family: "Lato", sans-serif;
-  font-weight: 400;
-  width: 510px;
-  box-sizing: border-box;
-  border: 1.5px solid #ccc;
+  /* font-weight: 400; */
+  width: 600px;
+  /* box-sizing: border-box; */
+  border: 1px solid #ccc;
   /* -webkit-transition: 0.5s; */
   transition: 0.5s;
   /* outline: none; */
@@ -184,10 +186,18 @@ input[type="text"] {
 }
 .repoContainer {
   width: 100%;
-  border: 0.6px solid black;
-  border-radius: 20px;
+  border-left: 0.6px solid black;
+  border-bottom: 0.5px solid black;
+  border-radius: 3px;
   padding: 10px;
-  margin: 20px;
+  margin: 10px;
+  text-align: center;
+}
+.repoContainer h2:hover {
+  font-size: 1.5em;
+  cursor: pointer;
+  color: thistle;
+  font-weight: bold;
 }
 .resultsContainer {
   display: flex;
@@ -195,16 +205,23 @@ input[type="text"] {
 }
 
 .gitHubCard {
-  margin: 50px auto;
+  margin: 30px auto;
   padding: 50px;
-  width: 300px;
-  border: 0.5px solid black;
+  width: 400px;
+  line-height: 1.6;
+  /* border: 0.5px solid black; */
+  border-left: 0.6px solid black;
+  border-bottom: 0.5px solid black;
   border-radius: 10px;
   overflow-wrap: break-word;
+  text-align: center;
 }
 .repoGrid {
   display: grid;
   grid-template-columns: 30% 30% 30%;
-  column-gap: 30px;
+  column-gap: 20px;
   grid-template-rows: auto;
+}
+.pageTwoHeader {
+  margin-left: 150px;
 }

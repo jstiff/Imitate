@@ -32,8 +32,6 @@ router.post("/register", (req, res, next) => {
 });
 
 router.post("/score", (req, res, next) => {
-  console.log("router.POST", req.body);
-  console.log("user info", req.user);
   const percent_correct = req.body.score;
   const user_id = req.user.id;
 

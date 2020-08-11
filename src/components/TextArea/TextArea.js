@@ -72,8 +72,8 @@ class TextArea extends Component {
   };
 
   handleKeyPress = (event, index) => {
-    console.log("event.key", event.key, this.state.keyIndex);
-    if (event.key === this.props.lesson[index]) {
+    console.log("EVENT", event.keyCode, this.state.keyIndex);
+    if (event.key === this.props.lesson.data[index]) {
       console.log("sucess");
 
       this.setState({
@@ -91,7 +91,21 @@ class TextArea extends Component {
         keyIndex: this.state.keyIndex - 1,
         keyValue: true,
       });
-    } else if (event.key !== this.props.lesson[index]) {
+    } else if (
+      event.key === "Return" ||
+      ("Enter" && this.props.lesson.data[index] == "\n")
+    ) {
+      event.preventDefault();
+      this.setState({
+        keyIndex: this.state.keyIndex + 1,
+        keyValue: true,
+        metrics: {
+          correct: this.state.metrics.correct + 1,
+          wrong: this.state.metrics.wrong,
+          lessonLength: this.props.lesson.length,
+        },
+      });
+    } else if (event.key !== this.props.lesson.data[index]) {
       console.log("wrong");
       this.setState({
         keyValue: false,
@@ -108,7 +122,7 @@ class TextArea extends Component {
   render() {
     return (
       <>
-        {/* {JSON.stringify(this.state)} */}
+        {JSON.stringify(this.state)}
 
         <pre
           contentEditable="true"

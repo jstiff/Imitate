@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+
 import LogOutButton from "../LogOutButton/LogOutButton";
 import reactDOM from "react-dom";
 import TextArea from "../TextArea/TextArea";
@@ -61,6 +61,7 @@ class UserPage extends Component {
               className="apiSearchInput"
               onChange={this.handleChange}
               type="text"
+              placeholder="search for user"
             />
             <button
               className="register-form-button button-ghost"
@@ -71,12 +72,7 @@ class UserPage extends Component {
           </div>
         </div>
         {true ? JSON.stringify(this.props.gitHub) : null}
-        {this.props.content.loaded ? (
-          <h1>{JSON.stringify(this.props.content.data.content)}</h1>
-        ) : (
-          <h1>False is loaded yo</h1>
-        )}
-        {/* <div className="apiResults">{this.Question()}</div> */}
+
         {this.props.gitHubUser.loaded &&
         this.props.userRepos.loaded &&
         this.props.repoFiles.loaded ? (

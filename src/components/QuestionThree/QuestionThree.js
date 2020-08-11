@@ -21,9 +21,7 @@ class QuestionThree extends Component {
                   onClick={() => this.getRepoContent(file.url)}
                   className="gitHubCard"
                 >
-                  <p>{file.path}</p>
-                  <br />
-                  <p>{file.url}</p>
+                  <h2>{file.path}</h2>
                 </div>
               </Link>
             );

@@ -15,17 +15,23 @@ class QuestionTwo extends Component {
   render() {
     return (
       <>
-        <h1>Choose one of these repositories</h1>
+        <h1 className="pageTwoHeader">Choose one of these repositories</h1>
         <div className="repoGrid">
           {/* {JSON.stringify(this.props.repos.data)} */}
           {this.props.userRepos.data.map((repo, index) => {
             return (
               <div className="repoContainer">
-                <div onClick={(event) => this.grabTree(event, repo.name)}>
-                  {repo.name}
+                <div>
+                  <div>
+                    <h2 onClick={(event) => this.grabTree(event, repo.name)}>
+                      {repo.name}
+                    </h2>
+                  </div>
                   <br />
-                  {repo.description} <br />
-                  It was mostly written in {repo.language}
+                  {/* {repo.description} <br /> */}
+                  {repo.language !== null ? (
+                    <h3>It was mostly written in {repo.language}</h3>
+                  ) : null}
                   <br />
                 </div>
               </div>
