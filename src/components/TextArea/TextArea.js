@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import reactDOM from "react-dom";
 import "./TextArea.css";
+import { Link } from "react-router-dom";
 
 class TextArea extends Component {
   // this component doesn't do much to start, just renders some user info to the DOM
@@ -183,9 +184,11 @@ class TextArea extends Component {
         </pre>
         <div className="scoreContainer">
           <h1> {this.state.metrics.lessonScore} %</h1>
-          <button className="register-form-button" onClick={this.sendMetrics}>
-            Calculate percent correct
-          </button>
+          <Link to={"/history"}>
+            <button className="register-form-button" onClick={this.sendMetrics}>
+              Calculate score!
+            </button>
+          </Link>
         </div>
       </>
     );
