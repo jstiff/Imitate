@@ -12,10 +12,14 @@ class QuestionOne extends Component {
   render() {
     return (
       <div className="gitHubCard">
+        <img className="avatar" src={this.props.gitHub.data.avatar_url} />
         <h2>
-          {this.props.gitHub.data.name} has{" "}
-          {this.props.gitHub.data.public_repos} repositories to view. Would you
-          like to check any out?
+          {this.props.gitHub.data.name}{" "}
+          {this.props.gitHub.data.company !== null
+            ? ` works for ${this.props.gitHub.data.company} and `
+            : null}
+          has {this.props.gitHub.data.public_repos} repositories to view. Would
+          you like to check any out?
         </h2>
 
         <button onClick={this.viewRepos} className="register-form-button">

@@ -1,6 +1,6 @@
-const apiReducer = (state = { loaded: false }, action) => {
+const contentReducer2 = (state = { loaded: false }, action) => {
   switch (action.type) {
-    case "LOAD_USER_STATE":
+    case "LOAD_ADDED_CONTENT_INTO_STATE":
       return action.payload;
       break;
     case "CLEAR_ON_LOGOUT":
@@ -10,5 +10,4 @@ const apiReducer = (state = { loaded: false }, action) => {
       return state;
   }
 };
-
-export default apiReducer;
+export default contentReducer2;

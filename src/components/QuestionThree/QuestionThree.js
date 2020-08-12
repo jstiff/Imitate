@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 class QuestionThree extends Component {
-  getRepoContent = (url) => {
+  getRepoContent = (url, type) => {
     this.props.dispatch({
-      type: "GET_REPO_CONTENT",
+      type: type,
       payload: url,
     });
   };
@@ -15,19 +15,28 @@ class QuestionThree extends Component {
         <div className="repoGrid">
           {/* {JSON.stringify(this.props.repoFiles)} */}
           {this.props.repoFiles.data.map((file) => {
-            return (
+            return file.type === "blob" ? (
               <Link to={"/lesson"}>
                 <div
-                  onClick={() => this.getRepoContent(file.url)}
                   className="gitHubCard"
+                  onClick={() =>
+                    this.getRepoContent(file.url, "GET_REPO_CONTENT")
+                  }
                 >
                   <h2>{file.path}</h2>
                 </div>
               </Link>
-            );
+            ) : file.type === "tree" ? (
+              <h2
+                onClick={() =>
+                  this.getRepoContent(file.url, "GET_ADDITIONAL_TREE_CONTENT")
+                }
+              >
+                click to search further {file.path}
+              </h2>
+            ) : null;
           })}
         </div>
-        )
       </>
     );
   }
@@ -38,5 +47,38 @@ const mapStateToProps = (state) => ({
   gitHub: state.apiReducer,
   repoFiles: state.treeReducer,
   repos: state.reposReducer,
+  moreTreeData: state.co,
 });
 export default connect(mapStateToProps)(QuestionThree);
+
+{
+  /* <Link to={"/lesson"}>
+                <div
+                  onClick={() =>
+                    this.getRepoContent(file.url, "GET_REPO_CONTENT")
+                  }
+                  className="gitHubCard"
+                >
+                  <h2>{file.path}</h2>
+                  {file.type === "tree" ? (
+                    <h3>
+                      Tree:a click to search further{" "}
+                      <h2
+                        onClick={() =>
+                          this.getRepoContent(
+                            file.url,
+                            "GET_ADDITIONAL_TREE_CONTENT"
+                          )
+                        }
+                      >
+                        click
+                      </h2>
+                    </h3>
+                  ) : file.type === "blob" ? (
+                    <h3>blob</h3>
+                  ) : (
+                    "yo"
+                  )}
+                </div>
+              </Link> */
+}

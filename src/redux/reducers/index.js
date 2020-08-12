@@ -7,6 +7,7 @@ import apiReducer from "./apiReducer";
 import reposReducer from "./reposReducer";
 import treeReducer from "./treeReducer";
 import contentReducer from "./contentReducer";
+import contentReducer2 from "./contentReducer2";
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,6 +24,8 @@ const rootReducer = combineReducers({
   reposReducer,
   treeReducer,
   contentReducer,
+  contentReducer2,
+
   // will have an id and username if someone is logged in
 });
 

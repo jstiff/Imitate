@@ -185,7 +185,7 @@ input[type="text"] {
   margin: auto;
 }
 .repoContainer {
-  width: 100%;
+  width: 80%;
   border-left: 0.6px solid black;
   border-bottom: 0.5px solid black;
   border-radius: 3px;
@@ -218,10 +218,21 @@ input[type="text"] {
 }
 .repoGrid {
   display: grid;
-  grid-template-columns: 30% 30% 30%;
+  grid-template-columns: 40% 40%;
   column-gap: 20px;
   grid-template-rows: auto;
 }
 .pageTwoHeader {
   margin-left: 150px;
+}
+.avatar {
+  vertical-align: middle;
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  margin: 15px;
+}
+.lessonContainer {
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }

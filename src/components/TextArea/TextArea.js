@@ -14,9 +14,10 @@ class TextArea extends Component {
     });
   }
   style = {
-    border: "1px solid black",
+    //border: "1px solid black",
     height: "auto",
     width: "auto",
+
     margin: "60px",
     padding: "30px",
   };
@@ -44,6 +45,7 @@ class TextArea extends Component {
       correct: 0,
       wrong: 0,
       lessonScore: 0,
+      lessonLength: 0,
     },
   };
 
@@ -78,7 +80,7 @@ class TextArea extends Component {
         metrics: {
           correct: this.state.metrics.correct + 1,
           wrong: this.state.metrics.wrong,
-          lessonLength: this.props.lesson.length,
+          lessonLength: this.props.lesson.data.length,
         },
       });
     } else if (event.key === "Backspace" || event.key === "Delete") {
@@ -119,6 +121,9 @@ class TextArea extends Component {
     return (
       <>
         {JSON.stringify(this.state)}
+        {this.props.lesson.loaded
+          ? JSON.stringify(this.props.lesson.data.length)
+          : null}
 
         <pre
           contentEditable="true"

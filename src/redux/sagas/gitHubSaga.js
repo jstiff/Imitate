@@ -1,5 +1,6 @@
 import axios from "axios";
 //import { response } from "express";
+//import { response } from "express";
 import { put, takeLatest } from "redux-saga/effects";
 
 function* queryForUser(action) {
@@ -69,12 +70,23 @@ function* getRepoContent(action) {
     payload: response.data,
   });
 }
+function* getAdditionalContent(action) {
+  console.log("Additional tree content", action.payload);
+  const response = yield axios.post("/api/gitHub/content", {
+    url: action.payload,
+  });
+  yield put({
+    type: "LOAD_ADDED_CONTENT_INTO_STATE",
+    payload: response.data,
+  });
+}
 
 function* gitHubSaga() {
   yield takeLatest("FETCH_GITHUB_USER", queryForUser);
   yield takeLatest("GET_REPOS", getUserRepos);
   yield takeLatest("GET_REPO_TREE", getRepoTree);
   yield takeLatest("GET_REPO_CONTENT", getRepoContent);
+  yield takeLatest("GET_ADDITIONAL_TREE_CONTENT", getAdditionalContent);
 }
 
 export default gitHubSaga;

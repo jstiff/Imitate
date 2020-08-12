@@ -59,6 +59,7 @@ class UserPage extends Component {
               className="apiSearchInput"
               onChange={this.handleChange}
               type="text"
+              autoFocus
               placeholder="search for user"
             />
             <button
