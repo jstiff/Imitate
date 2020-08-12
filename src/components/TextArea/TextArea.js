@@ -70,7 +70,8 @@ class TextArea extends Component {
   };
 
   handleKeyPress = (event, index) => {
-    console.log("EVENT", event.keyCode, this.state.keyIndex);
+    console.log("EVENT", event.key, this.state.keyIndex);
+
     if (event.key === this.props.lesson.data[index]) {
       console.log("sucess");
 
@@ -96,14 +97,14 @@ class TextArea extends Component {
       event.preventDefault();
       this.setState({
         keyIndex: this.state.keyIndex + 1,
-        keyValue: true,
+        //keyValue: true,
         metrics: {
-          correct: this.state.metrics.correct + 1,
+          correct: this.state.metrics.correct,
           wrong: this.state.metrics.wrong,
           lessonLength: this.props.lesson.length,
         },
       });
-    } else if (event.key !== this.props.lesson.data[index]) {
+    } else if (event.shiftKey && event.key !== this.props.lesson.data[index]) {
       console.log("wrong");
       this.setState({
         keyValue: false,
@@ -113,6 +114,36 @@ class TextArea extends Component {
           lessonLength: this.props.lesson.length,
         },
       });
+    } else if (event.shiftKey && event.key === this.props.lesson.data[index]) {
+      this.setState({
+        keyIndex: this.state.keyIndex + 1,
+        keyValue: true,
+        metrics: {
+          correct: this.state.metrics.correct + 1,
+          wrong: this.state.metrics.wrong,
+          lessonLength: this.props.lesson.data.length,
+        },
+      });
+    } else if (!event.shiftKey && event.key !== this.props.lesson.data[index]) {
+      this.setState({
+        keyIndex: this.state.keyIndex,
+        keyValue: false,
+        metrics: {
+          correct: this.state.metrics.correct,
+          wrong: this.state.metrics.wrong + 1,
+          lessonLength: this.props.lesson.data.length,
+        },
+      });
+      // } else if (
+      //   event.shiftKey ||
+      //   (event.key === "Shift") !== this.props.lesson.data[index]
+      // ) {
+      //   console.log("shift works");
+      //   event.preventDefault();
+
+      //   this.setState({
+      //     keyValue: true,
+      //   });e
     }
     event.preventDefault();
   };

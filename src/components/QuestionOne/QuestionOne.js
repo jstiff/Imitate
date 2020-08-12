@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class QuestionOne extends Component {
   viewRepos = () => {
     this.props.dispatch({
       type: "GET_REPOS",
       payload: this.props.gitHub.data.login,
+    });
+  };
+
+  reSetUser = () => {
+    this.props.dispatch({
+      type: "CLEAR_ON_LOGOUT",
     });
   };
 
@@ -21,10 +28,15 @@ class QuestionOne extends Component {
           has {this.props.gitHub.data.public_repos} repositories to view. Would
           you like to check any out?
         </h2>
+        <div className="QuestionOneBtns">
+          <button onClick={this.viewRepos} className="register-form-button">
+            yes
+          </button>
 
-        <button onClick={this.viewRepos} className="register-form-button">
-          yes
-        </button>
+          <button onClick={this.reSetUser} className="register-form-button">
+            No thanks
+          </button>
+        </div>
       </div>
     );
   }

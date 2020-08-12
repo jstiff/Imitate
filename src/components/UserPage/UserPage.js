@@ -7,13 +7,14 @@ import TextArea from "../TextArea/TextArea";
 import QuestionOne from "../QuestionOne/QuestionOne";
 import QuestionTwo from "../QuestionTwo/QuestionTwo";
 import QuestionThree from "../QuestionThree/QuestionThree";
+import SearchUser from "../SeachUser/SearchUser";
 
 class UserPage extends Component {
   Question;
 
-  state = {
-    input: "",
-  };
+  // state = {
+  //   input: "",
+  // };
 
   grabTree = (event, repo) => {
     this.props.dispatch({
@@ -31,23 +32,23 @@ class UserPage extends Component {
       payload: this.props.gitHub.data.login,
     });
   };
-  handleChange = (event) => {
-    this.setState({
-      userName: event.target.value,
-    });
-  };
-  sendUserName = () => {
-    this.props.dispatch({ type: "CLEAR_ON_LOGOUT" });
-    this.props.dispatch({
-      type: "FETCH_GITHUB_USER",
-      payload: this.state.userName,
-    });
-  };
+  // handleChange = (event) => {
+  //   this.setState({
+  //     userName: event.target.value,
+  //   });
+  // };
+  // sendUserName = () => {
+  //   this.props.dispatch({ type: "CLEAR_ON_LOGOUT" });
+  //   this.props.dispatch({
+  //     type: "FETCH_GITHUB_USER",
+  //     payload: this.state.userName,
+  //   });
+  // };
 
   render() {
     return (
       <>
-        <div>
+        {/* <div>
           <h2 className="homeWelcome">
             Welcome {this.props.user.first_name},{" "}
             <span style={{ marginLeft: "10px" }}></span>search GitHub for your
@@ -69,13 +70,15 @@ class UserPage extends Component {
               Search user
             </button>
           </div>
-        </div>
+        </div> */}
         {true ? JSON.stringify(this.props.gitHub) : null}
 
         {this.props.gitHubUser.loaded &&
         this.props.userRepos.loaded &&
         this.props.repoFiles.loaded ? (
-          <QuestionThree />
+          <>
+            <QuestionThree />
+          </>
         ) : this.props.gitHubUser.loaded &&
           this.props.userRepos.loaded &&
           !this.props.repoFiles.loaded ? (
@@ -84,7 +87,9 @@ class UserPage extends Component {
           !this.props.userRepos.loaded &&
           !this.props.repoFiles.loaded ? (
           <QuestionOne />
-        ) : null}
+        ) : (
+          <SearchUser />
+        )}
       </>
     );
   }

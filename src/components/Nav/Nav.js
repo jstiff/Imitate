@@ -11,7 +11,8 @@ const Nav = (props) => (
     </Link>
 
     <div className="nav-right">
-      <h4 id="welcome">Welcome, {props.user.first_name}!</h4>
+      <h4 className="welcome">Welcome, {props.user.first_name}!</h4>
+
       <Link className="nav-link" to="/home">
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
@@ -24,7 +25,7 @@ const Nav = (props) => (
           <Link className="nav-link" to="/lesson">
             Lesson Page
           </Link>
-          <LogOutButton className="nav-link" />
+          <LogOutButton />
         </>
       )}
       {/* Always show this link since the about page is not protected */}
