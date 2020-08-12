@@ -236,3 +236,7 @@ input[type="text"] {
   overflow-wrap: break-word;
   white-space: pre-wrap;
 }
+.avatarWithTitle {
+  display: flex;
+  flex-direction: row;
+}

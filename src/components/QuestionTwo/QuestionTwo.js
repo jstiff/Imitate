@@ -15,7 +15,10 @@ class QuestionTwo extends Component {
   render() {
     return (
       <>
-        <h1 className="pageTwoHeader">Choose one of these repositories</h1>
+        <div className="avatarWithTitle">
+          <img className="avatar" src={this.props.gitHub.data.avatar_url} />
+          <h1 className="pageTwoHeader">{this.props.gitHub.data.name}</h1>
+        </div>
         <div className="repoGrid">
           {/* {JSON.stringify(this.props.repos.data)} */}
           {this.props.userRepos.data.map((repo, index) => {

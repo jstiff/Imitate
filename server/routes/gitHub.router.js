@@ -62,12 +62,15 @@ router.post("/repos", rejectUnauthenticated, (req, res) => {
 router.post("/", rejectUnauthenticated, (req, res) => {
   const userInfo = `https://api.github.com/users/${req.body.userName}?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
 
+  const userInfo2 = `https://api.github.com/users/${req.body.userName}/hovercard?subject_type=repository?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
+
   const testGetRepo = `https://api.github.com/repos/jstiff/typing.io-clone/contents/sourceCode.txt?client_id=f00efe0a15d0dd37c99d&client_secret=d4a42f22546157493f204551cbbf9bd`;
 
   const blob = `https://api.github.com/repos/${req.body.userName}/typing.io-clone/git/blobs/7ae08b964fe2c5511247fabf033f5f8b937abde6?client_id=f00efe0a15d0dd37c99d&client_secret=d4a42f22546157493f204551cbbf9bd`;
 
   Axios.get(userInfo)
     .then((response) => {
+      console.log("pooooooooop", response.data);
       res.send({
         loaded: true,
         data: response.data,
