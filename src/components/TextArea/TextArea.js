@@ -49,6 +49,9 @@ class TextArea extends Component {
       lessonLength: 0,
     },
   };
+  getHistoryData = () => {
+    this.props.dispatch({ type: "GET_HISTORY" });
+  };
 
   sendMetrics = () => {
     let { correct } = this.state.metrics;
@@ -68,6 +71,8 @@ class TextArea extends Component {
       type: "ADD_SCORE",
       payload: results.percentCorrect,
     });
+
+    this.getHistoryData();
   };
 
   handleKeyPress = (event, index) => {
@@ -184,7 +189,13 @@ class TextArea extends Component {
         </pre>
         <div className="scoreContainer">
           <h1> {this.state.metrics.lessonScore} %</h1>
-          <Link to={"/history"}>
+          <Link
+            to={{
+              pathname: "/history",
+              state: { score: "poop" },
+              loaded: true,
+            }}
+          >
             <button className="register-form-button" onClick={this.sendMetrics}>
               Calculate score!
             </button>
