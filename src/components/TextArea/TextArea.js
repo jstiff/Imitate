@@ -49,8 +49,7 @@ class TextArea extends Component {
       lessonLength: 0,
     },
   };
-
-  sendMetrics = () => {
+  answer = () => {
     let { correct } = this.state.metrics;
     let { wrong } = this.state.metrics;
     const results = {
@@ -69,6 +68,12 @@ class TextArea extends Component {
       payload: {
         percent_correct: results.percentCorrect,
       },
+    });
+  };
+  sendMetrics = () => {
+    this.props.dispatch({
+      type: "SEND_LESSON_DATA_TO_SERVER",
+      payload: this.props.lessonResultData,
     });
   };
 
@@ -176,17 +181,12 @@ class TextArea extends Component {
         </pre>
         <div className="scoreContainer">
           <h1> {this.state.metrics.lessonScore} %</h1>
-          <Link
-            to={{
-              pathname: "/history",
-              state: { score: this.state.metrics.lessonScore },
-              loaded: true,
-            }}
-          >
-            <button className="register-form-button" onClick={this.sendMetrics}>
-              Calculate score!
-            </button>
+          <Link to={"/history"}>
+            <button onClick={this.sendMetrics}>history</button>
           </Link>
+          <button className="register-form-button" onClick={this.answer}>
+            Calculate score!
+          </button>
         </div>
       </>
     );
@@ -199,6 +199,7 @@ const mapStateToProps = (state) => ({
   //lesson: state.lessonText,
   repos: state.reposReducer,
   lesson: state.contentReducer,
+  lessonResultData: state.tempReducer,
 });
 
 // this allows us to use <App /> in index.js

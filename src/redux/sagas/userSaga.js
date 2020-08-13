@@ -45,10 +45,25 @@ function* getHistory(action) {
     console.log("User get request failed", error);
   }
 }
+function* sendLessonResults(action) {
+  try {
+    const config = {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    };
+    console.log("FART", action.payload);
+    const response = yield axios.post("/api/user/results", config, {
+      data: action.payload,
+    });
+  } catch (error) {
+    console.log("Lesson results POST failed", error);
+  }
+}
 
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
   yield takeLatest("GET_HISTORY", getHistory);
+  yield takeLatest("SEND_LESSON_DATA_TO_SERVER", sendLessonResults);
 }
 
 export default userSaga;

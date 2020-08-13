@@ -47,18 +47,62 @@ router.post("/register", (req, res, next) => {
     .catch(() => res.sendStatus(500));
 });
 
-router.post("/score", (req, res, next) => {
+router.post("/results", rejectUnauthenticated, async (req, res, next) => {
   const time = moment().format("LLLL");
-  const time_stamp = time;
-  const percent_correct = req.body.score;
-  const user_id = req.user.id;
+  const fav_coder = req.body[0];
+  const repos = req.body[1];
+  const chosen_file = req.body[2];
+  const percent_correct = req.body[3];
+  console.log(req.body);
+  const connection = await pool.connect();
 
-  const queryText =
-    'INSERT INTO "metrics" (time_stamp, percent_correct, user_id) VALUES ($1, $2,$3) RETURNING id';
-  pool
-    .query(queryText, [time_stamp, percent_correct, user_id])
-    .then(() => res.sendStatus(201))
-    .catch(() => res.sendStatus(500));
+  try {
+    console.log("results", req.body);
+    const fav_coder_query = `INSERT INTO fav_coders (name, user_name, avatar_url) VALUES ($1, $2, $3) RETURNING id;`;
+
+    const repo_query = `INSERT INTO repos (repo_name, repo_url, repo_owner) VALUES ($1, $2, $3) RETURNING id;`;
+
+    const chosen_file_query = `INSERT INTO chosen_file (file_name, file_url, repo_id) VALUES ($1, $2, $3) RETURNING id;`;
+
+    const score_query = `INSERT INTO metrics (percent_correct, time_stamp, file_id) VALUES ($1, $2, $3);`;
+
+    const fav_coderInstance = await connection.query(fav_coder_query, [
+      fav_coder.name,
+      fav_coder.userName,
+      fav_coder.avatar_url,
+    ]);
+    const fav_coderId = fav_coderInstance.rows[0].id;
+    console.log("Fav_coder", fav_coderId, fav_coderInstance.rows[0].id);
+    const repoInstance = await connection.query(repo_query, [
+      repos.repo_name,
+      repos.repo_url,
+      fav_coderId,
+    ]);
+    const repoId = repoInstance.rows[0].id;
+    console.log("REEEPPPPOOOO", repoId);
+
+    const chosen_fileInstance = await connection.query(chosen_file_query, [
+      chosen_file.file_name,
+      chosen_file.file_url,
+      repoId,
+    ]);
+
+    const fileId = chosen_fileInstance.rows[0].id;
+    await connection.query(score_query, [
+      percent_correct.percent_correct,
+      time,
+      fileId,
+    ]);
+
+    await connection.query("COMMIT;");
+    res.sendStatus(200);
+  } catch (error) {
+    console.log("REsults route Failed", error);
+    await connection.query("ROLLBACK");
+    res.sendStatus(500);
+  } finally {
+    connection.release();
+  }
 });
 
 // Handles login form authenticate/login POST
