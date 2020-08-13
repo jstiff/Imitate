@@ -49,9 +49,6 @@ class TextArea extends Component {
       lessonLength: 0,
     },
   };
-  getHistoryData = () => {
-    this.props.dispatch({ type: "GET_HISTORY" });
-  };
 
   sendMetrics = () => {
     let { correct } = this.state.metrics;
@@ -68,11 +65,11 @@ class TextArea extends Component {
       },
     });
     this.props.dispatch({
-      type: "ADD_SCORE",
-      payload: results.percentCorrect,
+      type: "ADD_TO_TEMP",
+      payload: {
+        percent_correct: results.percentCorrect,
+      },
     });
-
-    this.getHistoryData();
   };
 
   handleKeyPress = (event, index) => {
@@ -140,16 +137,6 @@ class TextArea extends Component {
           lessonLength: this.props.lesson.data.length,
         },
       });
-      // } else if (
-      //   event.shiftKey ||
-      //   (event.key === "Shift") !== this.props.lesson.data[index]
-      // ) {
-      //   console.log("shift works");
-      //   event.preventDefault();
-
-      //   this.setState({
-      //     keyValue: true,
-      //   });e
     }
     event.preventDefault();
   };
@@ -192,7 +179,7 @@ class TextArea extends Component {
           <Link
             to={{
               pathname: "/history",
-              state: { score: "poop" },
+              state: { score: this.state.metrics.lessonScore },
               loaded: true,
             }}
           >
