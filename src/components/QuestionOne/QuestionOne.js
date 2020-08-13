@@ -8,6 +8,14 @@ class QuestionOne extends Component {
       type: "GET_REPOS",
       payload: this.props.gitHub.data.login,
     });
+    this.props.dispatch({
+      type: "ADD_TO_TEMP",
+      payload: {
+        name: this.props.gitHub.data.name,
+        userName: this.props.gitHub.data.login,
+        avatar_url: this.props.gitHub.data.avatar_url,
+      },
+    });
   };
 
   reSetUser = () => {

@@ -2,12 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class QuestionTwo extends Component {
-  grabTree = (event, repo) => {
+  grabTree = (event, repo, id, url) => {
     this.props.dispatch({
       type: "GET_REPO_TREE",
       payload: {
         userName: this.props.gitHub.data.login,
         repoName: repo,
+      },
+    });
+    this.props.dispatch({
+      type: "ADD_TO_TEMP",
+      payload: {
+        repo_name: repo,
+        repo_id: id,
+        repo_url: url,
       },
     });
   };
@@ -26,7 +34,11 @@ class QuestionTwo extends Component {
               <div className="repoContainer">
                 <div>
                   <div>
-                    <h2 onClick={(event) => this.grabTree(event, repo.name)}>
+                    <h2
+                      onClick={(event) =>
+                        this.grabTree(event, repo.name, repo.id, repo.blobs_url)
+                      }
+                    >
                       {repo.name}
                     </h2>
                   </div>

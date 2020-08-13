@@ -3,11 +3,18 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 class QuestionThree extends Component {
-  getRepoContent = (url, type) => {
+  getRepoContent = (name, url, type) => {
     this.props.dispatch({
       type: type,
       payload: url,
     });
+    // this.props.dispatch({
+    //   type: "ADD_TO_TEMP",
+    //   payload: {
+    //     file_name: name,
+    //     file_url: url,
+    //   },
+    // });
   };
   render() {
     return (
@@ -20,7 +27,7 @@ class QuestionThree extends Component {
                 <div
                   className="gitHubCard"
                   onClick={() =>
-                    this.getRepoContent(file.url, "GET_REPO_CONTENT")
+                    this.getRepoContent(file.path, file.url, "GET_REPO_CONTENT")
                   }
                 >
                   <h2>{file.path}</h2>
@@ -47,7 +54,6 @@ const mapStateToProps = (state) => ({
   gitHub: state.apiReducer,
   repoFiles: state.treeReducer,
   repos: state.reposReducer,
-  moreTreeData: state.co,
 });
 export default connect(mapStateToProps)(QuestionThree);
 

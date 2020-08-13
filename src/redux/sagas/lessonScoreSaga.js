@@ -11,8 +11,16 @@ function* addUserScore(action) {
   }
 }
 
+function* addToHistTemp(action) {
+  yield put({
+    type: "LOAD_INTO_TEMP",
+    payload: action.payload,
+  });
+}
+
 function* lessonScoreSaga() {
   yield takeLatest("ADD_SCORE", addUserScore);
+  yield takeLatest("ADD_TO_TEMP", addToHistTemp);
 }
 
 export default lessonScoreSaga;

@@ -6,8 +6,8 @@ import lessonText from "./lessonText";
 import apiReducer from "./apiReducer";
 import reposReducer from "./reposReducer";
 import treeReducer from "./treeReducer";
-import contentReducer from "./contentReducer";
-import contentReducer2 from "./contentReducer2";
+import contentReducer from "./tempReducer";
+import tempReducer from "./tempReducer";
 import historyReducer from "./historyReducer";
 
 // rootReducer is the primary reducer for our entire project
@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
   reposReducer,
   treeReducer,
   contentReducer,
-  contentReducer2,
+  tempReducer,
   historyReducer,
 
   // will have an id and username if someone is logged in
