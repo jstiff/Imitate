@@ -6,7 +6,7 @@ import lessonText from "./lessonText";
 import apiReducer from "./apiReducer";
 import reposReducer from "./reposReducer";
 import treeReducer from "./treeReducer";
-import contentReducer from "./tempReducer";
+import contentReducer from "./contentReducer";
 import tempReducer from "./tempReducer";
 import historyReducer from "./historyReducer";
 

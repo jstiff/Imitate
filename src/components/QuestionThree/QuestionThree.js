@@ -8,13 +8,13 @@ class QuestionThree extends Component {
       type: type,
       payload: url,
     });
-    // this.props.dispatch({
-    //   type: "ADD_TO_TEMP",
-    //   payload: {
-    //     file_name: name,
-    //     file_url: url,
-    //   },
-    // });
+    this.props.dispatch({
+      type: "ADD_TO_TEMP",
+      payload: {
+        file_name: name,
+        file_url: url,
+      },
+    });
   };
   render() {
     return (

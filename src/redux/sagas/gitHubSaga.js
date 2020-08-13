@@ -65,6 +65,7 @@ function* getRepoContent(action) {
   const response = yield axios.post("/api/gitHub/content", {
     url: action.payload,
   });
+  yield console.log("pooop", response.data);
   yield put({
     type: "LOAD_CONTENT_INTO_STATE",
     payload: response.data,
