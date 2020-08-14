@@ -22,14 +22,14 @@ class Comment extends Component {
   render() {
     return (
       <>
-        <td>
+        <td className="commentContainer">
           <textarea
             onChange={this.handleChange}
             placeholder="comments"
           ></textarea>
-        </td>
-        <td>
-          <button onClick={this.sendComment}>edit</button>
+          <button className="comment-button" onClick={this.sendComment}>
+            Update
+          </button>
         </td>
       </>
     );

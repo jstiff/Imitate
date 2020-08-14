@@ -265,3 +265,66 @@ th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+.commentContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.commentContainer textarea {
+  margin: 15px;
+  height: 75px;
+  border-radius: 15px;
+}
+.commentContainer button {
+  width: 80px;
+
+  margin: 20px auto;
+  background: #4b4a47;
+  border: none;
+  border-radius: 25px;
+  color: #ffffff;
+  padding: 5px 10px;
+
+  letter-spacing: 1px;
+  font-weight: 100;
+  cursor: pointer;
+  transition: all 300ms;
+}
+.comment-button:hover {
+  background: #f25146;
+}
+.comment-button:focus {
+  outline: none;
+}
+.button-ghost {
+  background: transparent;
+  color: #f36359;
+  border: 2px solid #f25146;
+}
+.button-ghost:hover {
+  color: #ffffff;
+}
+.historyTitle {
+  margin: 20px;
+  padding: 30px;
+  text-align: center;
+}
+.historyTitle h1 {
+  border-bottom: 0.5px solid black;
+  display: inline-block;
+  padding-bottom: 15px;
+  font-weight: 300;
+}
+
+.scoreContainer {
+  text-align: center;
+  padding-top: 200px;
+}
+.historyTable tr th {
+  font-family: "Lato", sans-serif;
+  font-weight: 200;
+  font-size: 18px;
+}
+.register-form-button-score {
+}

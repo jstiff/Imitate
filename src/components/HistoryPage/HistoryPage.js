@@ -25,21 +25,29 @@ class HistoryPage extends Component {
   render() {
     return (
       <div>
-        {this.props.temp &&
-          this.props.temp.percent_correct &&
-          !this.props.history.loaded}{" "}
-        ?
-        <h1 className="historyScore">
-          Your score was {this.props.temp && this.props.temp.percent_correct}
-        </h1>
-        <button className=".register-form-button" onClick={this.getHistoryData}>
-          View your past results
-        </button>{" "}
-        :
-        {this.props.history.loaded ? (
+        {!this.props.history.loaded ? (
           <>
-            <h1>History page</h1>
-            <table>
+            <div className="scoreContainer">
+              <h1 className="historyScore">
+                Great Job!our score was{" "}
+                {this.props.temp && this.props.temp.percent_correct}%
+              </h1>
+              <button
+                className="register-form-button-score"
+                onClick={this.getHistoryData}
+              >
+                View your past results
+              </button>{" "}
+            </div>
+          </>
+        ) : this.props.history.loaded ? (
+          <>
+            <div className="historyTitle">
+              <h1>
+                These are the repositories you have practiced on in the past
+              </h1>
+            </div>
+            <table className="historyTable">
               <tr>
                 <th>Avatar</th>
                 <th>Chosen Programmer</th>
@@ -49,7 +57,6 @@ class HistoryPage extends Component {
                 <th>Score from lesson</th>
                 <th>Comments</th>
                 <th>edit Comments</th>
-                <th>edit</th>
                 <th>delete</th>
               </tr>
               {this.props.history.data.map((score) => {
@@ -64,7 +71,7 @@ class HistoryPage extends Component {
                     </td>
                     <td>{score.name}</td>
                     <td>{score.repo_name}</td>
-                    <td>file</td>
+                    <td>{score.file_name}</td>
                     <td>{score.time_stamp}</td>
                     <td>{score.percent_correct}%</td>
                     <td>{score.comments}</td>
