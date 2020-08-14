@@ -2,7 +2,6 @@ import { combineReducers } from "redux";
 import errors from "./errorsReducer";
 import loginMode from "./loginModeReducer";
 import user from "./userReducer";
-import lessonText from "./lessonText";
 import apiReducer from "./apiReducer";
 import reposReducer from "./reposReducer";
 import treeReducer from "./treeReducer";
@@ -20,7 +19,6 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user,
-  lessonText,
   apiReducer,
   reposReducer,
   treeReducer,

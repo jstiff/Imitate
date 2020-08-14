@@ -196,7 +196,7 @@ class TextArea extends Component {
 // Instead of taking everything from state, we just want the user info.
 const mapStateToProps = (state) => ({
   user: state.user,
-  //lesson: state.lessonText,
+
   repos: state.reposReducer,
   lesson: state.contentReducer,
   lessonResultData: state.tempReducer,
