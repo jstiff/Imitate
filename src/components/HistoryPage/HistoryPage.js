@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 //import { Link } from "react-router-dom";
+import Comment from "../Comment/Comment";
 
 class HistoryPage extends Component {
   getHistoryData = () => {
     this.props.dispatch({ type: "GET_HISTORY" });
+  };
+
+  deleteLessonHist = (id) => {
+    console.log("pooop2", id);
+    this.props.dispatch({
+      type: "DELETE_LESSON_HISTORY",
+      payload: id,
+    });
   };
 
   reSetUser = () => {
@@ -38,7 +47,8 @@ class HistoryPage extends Component {
                 <th>File in Lesson</th>
                 <th>Date You Practiced</th>
                 <th>Score from lesson</th>
-                <th>Comments on the lesson</th>
+                <th>Comments</th>
+                <th>edit Comments</th>
                 <th>edit</th>
                 <th>delete</th>
               </tr>
@@ -46,21 +56,26 @@ class HistoryPage extends Component {
                 return (
                   <tr>
                     <td>
-                      <img alt="avatar" />
+                      <img
+                        className="avatar"
+                        alt="avatar"
+                        src={score.avatar_url}
+                      />
                     </td>
-                    <td>full name</td>
-                    <td>repo</td>
+                    <td>{score.name}</td>
+                    <td>{score.repo_name}</td>
                     <td>file</td>
                     <td>{score.time_stamp}</td>
                     <td>{score.percent_correct}%</td>
+                    <td>{score.comments}</td>
+                    <Comment id={score.metrics_id} />
+
                     <td>
-                      <textarea placeholder="comments"></textarea>
-                    </td>
-                    <td>
-                      <button>edit</button>
-                    </td>
-                    <td>
-                      <button>delete</button>
+                      <button
+                        onClick={() => this.deleteLessonHist(score.metrics_id)}
+                      >
+                        delete
+                      </button>
                     </td>
                   </tr>
                 );

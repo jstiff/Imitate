@@ -9,15 +9,41 @@ const moment = require("moment");
 
 const router = express.Router();
 
+router.put("/history/:id", (req, res) => {
+  console.log("SERVER PUT ", req.body.data);
+  const queryString = `UPDATE "metrics" SET "comments" = $1  WHERE id=$2;`;
+  pool
+    .query(queryString, [req.body.data, req.params.id])
+    .then((response) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error in DELETE", err);
+    });
+});
+
+router.delete("/history/:id", (req, res) => {
+  console.log("SERVER poop", req.params);
+  const queryString = `DELETE FROM "metrics" WHERE id=$1;`;
+  pool
+    .query(queryString, [req.params.id])
+    .then((response) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error in DELETE", err);
+    });
+});
+
 router.get("/history", rejectUnauthenticated, (req, res) => {
   console.log("inside HISTORY route", req.user);
   const queryString = `
   SELECT  "metrics"."id" AS "metrics_id", "avatar_url", "name", "repo_name", "file_name","time_stamp", "percent_correct", "comments"  FROM "metrics"
-  FULL JOIN "chosen_file" ON "metrics"."file_id" = "chosen_file"."id"
-  FULL JOIN "repos" ON "chosen_file"."repo_id" = "repos"."id"
-  FULL JOIN "fav_coders" ON "repos"."repo_owner" = "fav_coders"."id"
-  FULL JOIN "user_favCoder" ON "user_favCoder"."fav_coder_id" = "fav_coders"."id"
-  FULL JOIN "user" ON "user_favCoder"."user_id" = "user"."id"
+  JOIN "chosen_file" ON "metrics"."file_id" = "chosen_file"."id"
+  JOIN "repos" ON "chosen_file"."repo_id" = "repos"."id"
+  JOIN "fav_coders" ON "repos"."repo_owner" = "fav_coders"."id"
+  JOIN "user_favCoder" ON "user_favCoder"."fav_coder_id" = "fav_coders"."id"
+  JOIN "user" ON "user_favCoder"."user_id" = "user"."id"
   WHERE "user"."id" = ${req.user.id}
   ;`;
   pool

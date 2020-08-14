@@ -60,10 +60,34 @@ function* sendLessonResults(action) {
   }
 }
 
+function* deleteLesson(action) {
+  try {
+    console.log("DELETE Saga poop", action.payload);
+    yield axios.delete(`/api/user/history/${action.payload}`);
+    yield put({ type: "GET_HISTORY" });
+  } catch (error) {
+    console.log("User get request failed", error);
+  }
+}
+function* editComments(action) {
+  try {
+    console.log("DELETE Saga poop", action.payload);
+    yield axios.put(`/api/user/history/${action.payload.id}`, {
+      data: action.payload.comment,
+    });
+    yield put({ type: "GET_HISTORY" });
+    //yield put({ type: "GET_HISTORY" });
+  } catch (error) {
+    console.log("User get request failed", error);
+  }
+}
+
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
   yield takeLatest("GET_HISTORY", getHistory);
   yield takeLatest("SEND_LESSON_DATA_TO_SERVER", sendLessonResults);
+  yield takeLatest("DELETE_LESSON_HISTORY", deleteLesson);
+  yield takeLatest("EDIT_COMMENTS", editComments);
 }
 
 export default userSaga;
