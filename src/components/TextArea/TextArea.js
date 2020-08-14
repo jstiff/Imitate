@@ -149,7 +149,6 @@ class TextArea extends Component {
   render() {
     return (
       <>
-        {JSON.stringify(this.state)}
         {this.props.lesson.loaded
           ? JSON.stringify(this.props.lesson.data.length)
           : null}
@@ -196,7 +195,6 @@ class TextArea extends Component {
 // Instead of taking everything from state, we just want the user info.
 const mapStateToProps = (state) => ({
   user: state.user,
-
   repos: state.reposReducer,
   lesson: state.contentReducer,
   lessonResultData: state.tempReducer,
