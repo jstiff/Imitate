@@ -45,47 +45,52 @@ class HistoryPage extends Component {
             <div className="historyTitle">
               <h1>These are the repositories you have practiced in the past</h1>
             </div>
-            <table className="historyTable">
-              <tr>
-                <th>Avatar</th>
-                <th>Chosen Programmer</th>
-                <th>Repository</th>
-                <th>File in Lesson</th>
-                <th>Date You Practiced</th>
-                <th>Score from lesson</th>
-                <th>Comments</th>
-                <th>edit Comments</th>
-                <th>delete</th>
-              </tr>
-              {this.props.history.data.map((score) => {
-                return (
-                  <tr>
-                    <td>
-                      <img
-                        className="avatar"
-                        alt="avatar"
-                        src={score.avatar_url}
-                      />
-                    </td>
-                    <td>{score.name}</td>
-                    <td>{score.repo_name}</td>
-                    <td>{score.file_name}</td>
-                    <td>{score.time_stamp}</td>
-                    <td>{score.percent_correct}%</td>
-                    <td>{score.comments}</td>
-                    <Comment id={score.metrics_id} />
+            <div className="historyTableWrapper">
+              <table className="historyTable">
+                <tr>
+                  <th>Favorite Programmers</th>
+                  <th>Chosen Programmer</th>
+                  <th>Repository</th>
+                  <th>File in Lesson</th>
+                  <th>Date You Practiced</th>
+                  <th>Score from lesson</th>
+                  <th>Comments</th>
+                  <th>edit Comments</th>
+                  <th>delete</th>
+                </tr>
+                {this.props.history.data.map((score) => {
+                  return (
+                    <tr>
+                      <td>
+                        <img
+                          className="avatar"
+                          alt="avatar"
+                          src={score.avatar_url}
+                        />
+                      </td>
+                      <td>{score.name}</td>
+                      <td>{score.repo_name}</td>
+                      <td>{score.file_name}</td>
+                      <td>{score.time_stamp}</td>
+                      <td>{score.percent_correct}%</td>
+                      <td>{score.comments}</td>
+                      <Comment id={score.metrics_id} />
 
-                    <td>
-                      <button
-                        onClick={() => this.deleteLessonHist(score.metrics_id)}
-                      >
-                        delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </table>
+                      <td>
+                        <button
+                          className="historyDelete"
+                          onClick={() =>
+                            this.deleteLessonHist(score.metrics_id)
+                          }
+                        >
+                          X
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </table>
+            </div>
           </>
         ) : (
           <p>loading...</p>

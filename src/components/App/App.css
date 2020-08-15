@@ -283,15 +283,36 @@ tr:nth-child(even) {
 .commentContainer textarea {
   margin: 15px;
   height: 75px;
-  border-radius: 15px;
+  border-radius: 8px;
 }
+
+.historyDelete {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 20px auto;
+  background: #a09f9c;
+  border: none;
+
+  color: #ffffff;
+  padding: 5px 10px;
+
+  letter-spacing: 1px;
+  font-weight: 100;
+  cursor: pointer;
+  transition: all 300ms;
+}
+.historyDelete:hover {
+  background: #f25146;
+}
+
 .commentContainer button {
   width: 80px;
 
   margin: 20px auto;
   background: #4b4a47;
   border: none;
-  border-radius: 25px;
+  border-radius: 10px;
   color: #ffffff;
   padding: 5px 10px;
 
@@ -341,4 +362,8 @@ tr:nth-child(even) {
   margin: 20px auto;
 }
 .register-form-button-score {
+}
+.historyTableWrapper {
+  width: 90%;
+  margin: 30px auto;
 }
