@@ -8,6 +8,7 @@ import QuestionOne from "../QuestionOne/QuestionOne";
 import QuestionTwo from "../QuestionTwo/QuestionTwo";
 import QuestionThree from "../QuestionThree/QuestionThree";
 import SearchUser from "../SeachUser/SearchUser";
+import Directories from "../Directories/Directories";
 
 class UserPage extends Component {
   Question;
@@ -32,50 +33,20 @@ class UserPage extends Component {
       payload: this.props.gitHub.data.login,
     });
   };
-  // handleChange = (event) => {
-  //   this.setState({
-  //     userName: event.target.value,
-  //   });
-  // };
-  // sendUserName = () => {
-  //   this.props.dispatch({ type: "CLEAR_ON_LOGOUT" });
-  //   this.props.dispatch({
-  //     type: "FETCH_GITHUB_USER",
-  //     payload: this.state.userName,
-  //   });
-  // };
 
   render() {
     return (
       <>
-        {/* <div>
-          <h2 className="homeWelcome">
-            Welcome {this.props.user.first_name},{" "}
-            <span style={{ marginLeft: "10px" }}></span>search GitHub for your
-            favorite developer!
-          </h2>
-          <br />
-          <div className="gitHubSearchContainer">
-            <input
-              className="apiSearchInput"
-              onChange={this.handleChange}
-              type="text"
-              autoFocus
-              placeholder="search for user"
-            />
-            <button
-              className="register-form-button button-ghost"
-              onClick={this.sendUserName}
-            >
-              Search user
-            </button>
-          </div>
-        </div> */}
-        {true ? JSON.stringify(this.props.gitHub) : null}
-
-        {this.props.gitHubUser.loaded &&
+        {this.props.directoryTree.loaded &&
+        this.props.gitHubUser.loaded &&
         this.props.userRepos.loaded &&
         this.props.repoFiles.loaded ? (
+          <>
+            <Directories />
+          </>
+        ) : this.props.gitHubUser.loaded &&
+          this.props.userRepos.loaded &&
+          this.props.repoFiles.loaded ? (
           <>
             <QuestionThree />
           </>
@@ -103,5 +74,6 @@ const mapStateToProps = (state) => ({
   userRepos: state.reposReducer,
   repoFiles: state.treeReducer,
   content: state.contentReducer,
+  directoryTree: state.directoryTreeReducer,
 });
 export default connect(mapStateToProps)(UserPage);
