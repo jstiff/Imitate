@@ -21,25 +21,27 @@ class Directories extends Component {
   render() {
     return (
       <>
-        {/* {JSON.stringify(this.props.directoryTree)} */}
-        {this.props.directoryTree.data.map((file) => {
-          return (
-            <Link to={"/lesson"}>
-              <p
-                onClick={() =>
-                  this.getRepoContent(
-                    file.url,
-                    "GET_REPO_CONTENT",
-                    file.path,
-                    "ADD_TO_TEMP"
-                  )
-                }
-              >
-                {file.path}
-              </p>
-            </Link>
-          );
-        })}
+        <div className="directoryFilesWrapper">
+          {/* {JSON.stringify(this.props.directoryTree)} */}
+          {this.props.directoryTree.data.map((file) => {
+            return (
+              <Link to={"/lesson"}>
+                <p
+                  onClick={() =>
+                    this.getRepoContent(
+                      file.url,
+                      "GET_REPO_CONTENT",
+                      file.path,
+                      "ADD_TO_TEMP"
+                    )
+                  }
+                >
+                  {file.path}
+                </p>
+              </Link>
+            );
+          })}
+        </div>
       </>
     );
   }

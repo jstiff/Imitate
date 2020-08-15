@@ -36,19 +36,19 @@ class QuestionThree extends Component {
                     )
                   }
                 >
-                  <h2>{file.path}</h2>
+                  <h3 className="poop">{file.path}</h3>
                 </div>
               </Link>
             ) : file.type === "tree" ? (
               <div className="treeFile">
-                <h2
+                <h3
                   className="directoryTitle"
                   onClick={() =>
                     this.getRepoContent(file.url, "GET_ADDITIONAL_TREE")
                   }
                 >
                   {file.path}
-                </h2>
+                </h3>
               </div>
             ) : null;
           })}

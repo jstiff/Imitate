@@ -4,6 +4,13 @@ import { connect } from "react-redux";
 import Comment from "../Comment/Comment";
 
 class HistoryPage extends Component {
+  sendMetrics = () => {
+    this.props.dispatch({
+      type: "SEND_LESSON_DATA_TO_SERVER",
+      payload: this.props.lessonResultData,
+    });
+  };
+
   getHistoryData = () => {
     this.props.dispatch({ type: "GET_HISTORY" });
   };
@@ -29,9 +36,15 @@ class HistoryPage extends Component {
           <>
             <div className="scoreContainer">
               <h1 className="historyScore">
-                Great Job!our score was{" "}
+                Great Job! your score was{" "}
                 {this.props.temp && this.props.temp.percent_correct}%
               </h1>
+              <button
+                className="register-form-button-score"
+                onClick={this.sendMetrics}
+              >
+                Add score to history
+              </button>
               <button
                 className="register-form-button-score"
                 onClick={this.getHistoryData}
@@ -105,5 +118,6 @@ const mapStateToProps = (state) => ({
   gitHub: state.apiReducer,
   history: state.historyReducer,
   temp: state.tempReducer[3],
+  lessonResultData: state.tempReducer,
 });
 export default connect(mapStateToProps)(HistoryPage);

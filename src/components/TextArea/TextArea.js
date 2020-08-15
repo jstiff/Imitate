@@ -69,6 +69,8 @@ class TextArea extends Component {
         percent_correct: results.percentCorrect,
       },
     });
+    console.log("BEFORE METRICS SENT");
+    this.sendMetrics();
   };
   sendMetrics = () => {
     this.props.dispatch({
@@ -179,13 +181,13 @@ class TextArea extends Component {
             : null}
         </pre>
         <div className="scoreContainer">
-          <h1> {this.state.metrics.lessonScore} %</h1>
+          <h1> {this.state.metrics.lessonScore}</h1>
+
           <Link to={"/history"}>
-            <button onClick={this.sendMetrics}>history</button>
+            <button className="register-form-button" onClick={this.answer}>
+              Calculate score!
+            </button>
           </Link>
-          <button className="register-form-button" onClick={this.answer}>
-            Calculate score!
-          </button>
         </div>
       </>
     );

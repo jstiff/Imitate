@@ -349,7 +349,7 @@ tr:nth-child(even) {
 
 .scoreContainer {
   text-align: center;
-  padding-top: 200px;
+  padding-top: 25px;
 }
 .historyTable tr th {
   font-family: "Lato", sans-serif;
@@ -375,7 +375,17 @@ tr:nth-child(even) {
 }
 .fileTreeWrapper {
   width: 80%;
-  margin: 30px auto;
+  height: auto;
+  padding: 50px 0;
+  border: 0.5px solid black;
+  margin: 100px auto;
+  text-align: left;
+  border-radius: 10px;
+}
+.fileTreeWrapper h3 {
+  font-size: 26px;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
 }
 .blobFile {
   margin-left: 75px;
@@ -383,9 +393,50 @@ tr:nth-child(even) {
   font-weight: 200;
   font-size: 18px;
 }
+.poop:hover {
+  font-size: 500;
+}
 .treeFile {
   margin-left: 125px;
   font-family: "Lato", sans-serif;
   font-weight: 200;
   font-size: 18px;
+}
+.directoryFilesWrapper {
+  width: 80%;
+  height: auto;
+  padding: 150px 0;
+  border: 0.5px solid black;
+  margin: 200px auto;
+  text-align: center;
+  border-radius: 10px;
+}
+.directoryFilesWrapper p {
+  font-size: 26px;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  display: block;
+}
+.directoryTitle:hover {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.register-form-button-score {
+  margin: 20px 30px;
+  background: #9b9a97;
+  border: none;
+  border-radius: 25px;
+  color: #ffffff;
+  padding: 15px 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 300ms;
+}
+.register-form-button-score:hover {
+  background: transparent;
+  color: #f36359;
+  border: 1px solid #f25146;
 }
