@@ -243,6 +243,7 @@ input[type="text"] {
 .avatarWithTitle {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 .welcome {
   font-family: "Lato", sans-serif;
@@ -253,20 +254,25 @@ input[type="text"] {
   justify-content: space-evenly;
 }
 table {
-  font-family: arial, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
   border-collapse: collapse;
   width: 100%;
+  border-radius: 20px;
 }
 
 td,
 th {
-  border: 1px solid #dddddd;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  border: 0.6px solid #dddddd;
   text-align: left;
   padding: 8px;
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
+  /* background-color: #dddddd; */
+  background-color: #f8eded;
 }
 
 .commentContainer {
@@ -328,6 +334,11 @@ tr:nth-child(even) {
   font-family: "Lato", sans-serif;
   font-weight: 200;
   font-size: 18px;
+}
+
+.repositoryContainer {
+  width: 80%;
+  margin: 20px auto;
 }
 .register-form-button-score {
 }

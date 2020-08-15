@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import reposReducer from "../../redux/reducers/reposReducer";
 
 class QuestionTwo extends Component {
   grabTree = (event, repo, id, url) => {
@@ -25,33 +26,50 @@ class QuestionTwo extends Component {
       <>
         <div className="avatarWithTitle">
           <img className="avatar" src={this.props.gitHub.data.avatar_url} />
-          <h1 className="pageTwoHeader">{this.props.gitHub.data.name}</h1>
+          {/* <h1 className="pageTwoHeader">{this.props.gitHub.data.name}</h1> */}
         </div>
-        <div className="repoGrid">
-          {/* {JSON.stringify(this.props.repos.data)} */}
-          {this.props.userRepos.data.map((repo, index) => {
-            return (
-              <div className="repoContainer">
-                <div>
-                  <div>
-                    <h2
+        {/* className="repoGrid" */}
+        <div className="repositoryContainer">
+          <table className="historyTable">
+            <tr>
+              <th>Repository Name</th>
+              <th>Description</th>
+              <th>Language Used</th>
+              <th>Date last updated</th>
+            </tr>
+            {this.props.userRepos.data.map((repo, index) => {
+              return (
+                <tr>
+                  <td>
+                    <h3
                       onClick={(event) =>
                         this.grabTree(event, repo.name, repo.id, repo.blobs_url)
                       }
                     >
                       {repo.name}
-                    </h2>
-                  </div>
-                  <br />
-                  {/* {repo.description} <br /> */}
-                  {repo.language !== null ? (
-                    <h3>It was mostly written in {repo.language}</h3>
-                  ) : null}
-                  <br />
-                </div>
-              </div>
-            );
-          })}
+                    </h3>
+                  </td>
+                  <td>
+                    {repo.description ? (
+                      <p>{repo.description}</p>
+                    ) : (
+                      <p>No description provided</p>
+                    )}
+                  </td>
+                  <td>
+                    {repo.language ? (
+                      <p>Mostly written in {repo.language}</p>
+                    ) : (
+                      <p>No Language was determined</p>
+                    )}
+                  </td>
+                  <td>
+                    <p>Repo last updated {repo.updated_at}</p>
+                  </td>
+                </tr>
+              );
+            })}
+          </table>
         </div>
       </>
     );
@@ -66,3 +84,28 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(QuestionTwo);
+
+{
+  /* <table>
+  <tr>
+    <th>Repository Name</th>
+    <th>Description</th>
+    <th>Language Used</th>
+    <th>Date last updated</th>
+  </tr>
+  <tr>
+    <td>
+      <h2
+        onClick={(event) =>
+          this.grabTree(event, repo.name, repo.id, repo.blobs_url)
+        }
+      >
+        {repo.name}
+      </h2>
+    </td>
+      <td>{repo.description ? <h3>{repo.description}</h3> : <h3>No description provided</h3> }</td>
+      <td>{ repo.language ? <h3>Mostly written in {repo.language}</h3>: <h3>No Language was determined</h3>}</td>
+      <td><h3>Repo last updated {repo.updated_at}</h3></td>
+  </tr>
+</table>; */
+}

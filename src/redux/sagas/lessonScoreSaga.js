@@ -12,10 +12,14 @@ function* addUserScore(action) {
 }
 
 function* addToHistTemp(action) {
-  yield put({
-    type: "LOAD_INTO_TEMP",
-    payload: action.payload,
-  });
+  try {
+    yield put({
+      type: "LOAD_INTO_TEMP",
+      payload: action.payload,
+    });
+  } catch (error) {
+    console.log("ADDtoTEMpSaGa error", error);
+  }
 }
 
 function* lessonScoreSaga() {

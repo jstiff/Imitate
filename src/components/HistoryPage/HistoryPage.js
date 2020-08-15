@@ -43,9 +43,7 @@ class HistoryPage extends Component {
         ) : this.props.history.loaded ? (
           <>
             <div className="historyTitle">
-              <h1>
-                These are the repositories you have practiced on in the past
-              </h1>
+              <h1>These are the repositories you have practiced in the past</h1>
             </div>
             <table className="historyTable">
               <tr>
