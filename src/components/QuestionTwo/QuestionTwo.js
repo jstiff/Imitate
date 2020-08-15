@@ -42,6 +42,7 @@ class QuestionTwo extends Component {
                 <tr>
                   <td>
                     <h3
+                      className="repoLink"
                       onClick={(event) =>
                         this.grabTree(event, repo.name, repo.id, repo.blobs_url)
                       }

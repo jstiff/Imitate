@@ -361,9 +361,12 @@ tr:nth-child(even) {
   width: 80%;
   margin: 20px auto;
 }
-.register-form-button-score {
-}
+
 .historyTableWrapper {
   width: 90%;
   margin: 30px auto;
+}
+.repoLink:hover {
+  cursor: pointer;
+  color: #f36359;
 }
