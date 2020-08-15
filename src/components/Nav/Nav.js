@@ -13,7 +13,11 @@ const Nav = (props) => (
     <div className="nav-right">
       <h4 className="welcome">Welcome, {props.user.first_name}!</h4>
 
-      <Link className="nav-link" to="/home">
+      <Link
+        onClick={() => props.dispatch({ type: "CLEAR_ON_LOGOUT" })}
+        className="nav-link"
+        to="/home"
+      >
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
