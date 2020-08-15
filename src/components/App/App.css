@@ -373,3 +373,19 @@ tr:nth-child(even) {
   cursor: pointer;
   color: #f36359;
 }
+.fileTreeWrapper {
+  width: 80%;
+  margin: 30px auto;
+}
+.blobFile {
+  margin-left: 75px;
+  font-family: "Lato", sans-serif;
+  font-weight: 200;
+  font-size: 18px;
+}
+.treeFile {
+  margin-left: 125px;
+  font-family: "Lato", sans-serif;
+  font-weight: 200;
+  font-size: 18px;
+}

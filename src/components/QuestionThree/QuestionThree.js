@@ -21,12 +21,12 @@ class QuestionThree extends Component {
   render() {
     return (
       <>
-        <div className="">
+        <div className="fileTreeWrapper">
           {this.props.repoFiles.data.map((file) => {
             return file.type === "blob" ? (
               <Link to={"/lesson"}>
                 <div
-                  className="gitHubCar"
+                  className="blobFile"
                   onClick={() =>
                     this.getRepoContent(
                       file.url,
@@ -40,13 +40,16 @@ class QuestionThree extends Component {
                 </div>
               </Link>
             ) : file.type === "tree" ? (
-              <h2
-                onClick={() =>
-                  this.getRepoContent(file.url, "GET_ADDITIONAL_TREE")
-                }
-              >
-                ? {file.path}
-              </h2>
+              <div className="treeFile">
+                <h2
+                  className="directoryTitle"
+                  onClick={() =>
+                    this.getRepoContent(file.url, "GET_ADDITIONAL_TREE")
+                  }
+                >
+                  {file.path}
+                </h2>
+              </div>
             ) : null;
           })}
         </div>
