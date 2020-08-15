@@ -42,6 +42,22 @@ router.post("/tree", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.post("/treeTwo", rejectUnauthenticated, (req, res) => {
+  const tree = `${req.body.url}?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
+
+  Axios.get(tree)
+    .then((response) => {
+      res.send({
+        loaded: true,
+        data: response.data.tree,
+      });
+    })
+    .catch((err) => {
+      console.log("GITHUB API ERROR", err);
+      res.sendStatus(500);
+    });
+});
+
 router.post("/repos", rejectUnauthenticated, (req, res) => {
   const repos = `https://api.github.com/users/${req.body.userName}/repos?per_page=5?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
 

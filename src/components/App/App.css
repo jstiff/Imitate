@@ -366,6 +366,9 @@ tr:nth-child(even) {
   width: 90%;
   margin: 30px auto;
 }
+.repoLink {
+  margin-left: 15px;
+}
 .repoLink:hover {
   cursor: pointer;
   color: #f36359;

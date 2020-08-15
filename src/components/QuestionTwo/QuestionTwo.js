@@ -26,7 +26,6 @@ class QuestionTwo extends Component {
       <>
         <div className="avatarWithTitle">
           <img className="avatar" src={this.props.gitHub.data.avatar_url} />
-          {/* <h1 className="pageTwoHeader">{this.props.gitHub.data.name}</h1> */}
         </div>
         {/* className="repoGrid" */}
         <div className="repositoryContainer">
@@ -85,28 +84,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(QuestionTwo);
-
-{
-  /* <table>
-  <tr>
-    <th>Repository Name</th>
-    <th>Description</th>
-    <th>Language Used</th>
-    <th>Date last updated</th>
-  </tr>
-  <tr>
-    <td>
-      <h2
-        onClick={(event) =>
-          this.grabTree(event, repo.name, repo.id, repo.blobs_url)
-        }
-      >
-        {repo.name}
-      </h2>
-    </td>
-      <td>{repo.description ? <h3>{repo.description}</h3> : <h3>No description provided</h3> }</td>
-      <td>{ repo.language ? <h3>Mostly written in {repo.language}</h3>: <h3>No Language was determined</h3>}</td>
-      <td><h3>Repo last updated {repo.updated_at}</h3></td>
-  </tr>
-</table>; */
-}

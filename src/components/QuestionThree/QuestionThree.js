@@ -3,31 +3,37 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 class QuestionThree extends Component {
-  getRepoContent = (name, url, type) => {
+  getRepoContent = (url, type, name, type2) => {
     this.props.dispatch({
       type: type,
       payload: url,
     });
-    this.props.dispatch({
-      type: "ADD_TO_TEMP",
-      payload: {
-        file_name: name,
-        file_url: url,
-      },
-    });
+    if (type2 === "ADD_TO_TEMP") {
+      this.props.dispatch({
+        type: "ADD_TO_TEMP",
+        payload: {
+          file_name: name,
+          file_url: url,
+        },
+      });
+    }
   };
   render() {
     return (
       <>
-        <div className="repoGrid">
-          {/* {JSON.stringify(this.props.repoFiles)} */}
+        <div className="">
           {this.props.repoFiles.data.map((file) => {
             return file.type === "blob" ? (
               <Link to={"/lesson"}>
                 <div
-                  className="gitHubCard"
+                  className="gitHubCar"
                   onClick={() =>
-                    this.getRepoContent(file.path, file.url, "GET_REPO_CONTENT")
+                    this.getRepoContent(
+                      file.url,
+                      "GET_REPO_CONTENT",
+                      file.path,
+                      "ADD_TO_TEMP"
+                    )
                   }
                 >
                   <h2>{file.path}</h2>
@@ -36,10 +42,10 @@ class QuestionThree extends Component {
             ) : file.type === "tree" ? (
               <h2
                 onClick={() =>
-                  this.getRepoContent(file.url, "GET_ADDITIONAL_TREE_CONTENT")
+                  this.getRepoContent(file.url, "GET_ADDITIONAL_TREE")
                 }
               >
-                click to search further {file.path}
+                ? {file.path}
               </h2>
             ) : null;
           })}
@@ -54,37 +60,6 @@ const mapStateToProps = (state) => ({
   gitHub: state.apiReducer,
   repoFiles: state.treeReducer,
   repos: state.reposReducer,
+  directories: state.directoryTreeReducer,
 });
 export default connect(mapStateToProps)(QuestionThree);
-
-{
-  /* <Link to={"/lesson"}>
-                <div
-                  onClick={() =>
-                    this.getRepoContent(file.url, "GET_REPO_CONTENT")
-                  }
-                  className="gitHubCard"
-                >
-                  <h2>{file.path}</h2>
-                  {file.type === "tree" ? (
-                    <h3>
-                      Tree:a click to search further{" "}
-                      <h2
-                        onClick={() =>
-                          this.getRepoContent(
-                            file.url,
-                            "GET_ADDITIONAL_TREE_CONTENT"
-                          )
-                        }
-                      >
-                        click
-                      </h2>
-                    </h3>
-                  ) : file.type === "blob" ? (
-                    <h3>blob</h3>
-                  ) : (
-                    "yo"
-                  )}
-                </div>
-              </Link> */
-}
