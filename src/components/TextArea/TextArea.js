@@ -181,8 +181,6 @@ class TextArea extends Component {
             : null}
         </pre>
         <div className="scoreContainer">
-          <h1> {this.state.metrics.lessonScore}%</h1>
-
           <Link to={"/history"}>
             <button className="register-form-button" onClick={this.answer}>
               Calculate score!
