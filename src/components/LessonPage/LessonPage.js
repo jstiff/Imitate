@@ -11,28 +11,13 @@ class LessonPage extends Component {
   render() {
     return (
       <div>
-        <h1>Lesson Page</h1>
+        <h1 className="lessonPageTitle">Lesson Page</h1>
         <TextArea />
       </div>
     );
   }
 }
 
-// If you needed to add local state or other things,
-// you can make it a class component like:
-
-/*
-class InfoPage extends React.Component {
-
-  render() {
-    return (
-      <div>
-        <p>Info Page</p>
-      </div>
-    )
-  }
-}
-*/
 const mapStateToProps = (state) => ({
   state,
 });

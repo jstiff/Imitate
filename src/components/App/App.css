@@ -440,3 +440,10 @@ tr:nth-child(even) {
   color: #f36359;
   border: 1px solid #f25146;
 }
+.lessonPageTitle {
+  font-size: 36px;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  margin-left: 40%;
+  margin-top: 40px;
+}

@@ -151,9 +151,9 @@ class TextArea extends Component {
   render() {
     return (
       <>
-        {this.props.lesson.loaded
+        {/* {this.props.lesson.loaded
           ? JSON.stringify(this.props.lesson.data.length)
-          : null}
+          : null} */}
 
         <pre
           contentEditable="true"
@@ -181,7 +181,7 @@ class TextArea extends Component {
             : null}
         </pre>
         <div className="scoreContainer">
-          <h1> {this.state.metrics.lessonScore}</h1>
+          <h1> {this.state.metrics.lessonScore}%</h1>
 
           <Link to={"/history"}>
             <button className="register-form-button" onClick={this.answer}>
