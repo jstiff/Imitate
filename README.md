@@ -6,6 +6,10 @@ This application uses the GitHub API, React, Redux, Express, Passport, and Postg
 
 ![Image of User Page](./public/Imitate-user-page.png)
 
+## lesson page once user chooses a repository to practice typing over.
+
+![Image of Lesson Page](./public/lesson-page.png)
+
 ## If you clone this Repository.
 
 Make sure you have the following software installed on your computer:
