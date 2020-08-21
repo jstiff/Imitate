@@ -4,6 +4,8 @@ Application that allows users to study their favorite programers code and practi
 
 This application uses the GitHub API, React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
 
+![Image of User Page](./public/Imitate-user-page.png)
+
 ## If you clone this Repository.
 
 Make sure you have the following software installed on your computer:
