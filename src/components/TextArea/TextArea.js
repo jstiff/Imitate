@@ -52,10 +52,15 @@ class TextArea extends Component {
   answer = () => {
     let { correct } = this.state.metrics;
     let { wrong } = this.state.metrics;
+    let length = this.props.lesson.data.length;
+    console.log("lessonlength", length);
+    // const results = {
+    //   percentCorrect: Math.round(
+    //     (parseInt(correct) / (parseInt(correct) + parseInt(wrong))) * 100
+    //   ),
+    // };
     const results = {
-      percentCorrect: Math.round(
-        (parseInt(correct) / (parseInt(correct) + parseInt(wrong))) * 100
-      ),
+      percentCorrect: Math.round((parseInt(correct) / length) * 100),
     };
 
     this.setState({
