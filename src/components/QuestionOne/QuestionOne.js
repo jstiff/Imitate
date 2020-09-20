@@ -24,6 +24,7 @@ class QuestionOne extends Component {
     });
   };
 
+  //Prompt page that displays the avatar of the username searched in the intput
   render() {
     return (
       <div className="gitHubCard">
@@ -51,7 +52,6 @@ class QuestionOne extends Component {
 }
 const mapStateToProps = (state) => ({
   user: state.user,
-  //lesson: state.lessonText,
   gitHub: state.apiReducer,
 });
 export default connect(mapStateToProps)(QuestionOne);

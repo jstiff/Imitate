@@ -13,10 +13,6 @@ import Directories from "../Directories/Directories";
 class UserPage extends Component {
   Question;
 
-  // state = {
-  //   input: "",
-  // };
-
   grabTree = (event, repo) => {
     this.props.dispatch({
       type: "GET_REPO_TREE",

@@ -15,10 +15,8 @@ class TextArea extends Component {
     });
   }
   style = {
-    //border: "1px solid black",
     height: "auto",
     width: "auto",
-
     margin: "60px",
     padding: "30px",
   };
@@ -53,12 +51,7 @@ class TextArea extends Component {
     let { correct } = this.state.metrics;
     let { wrong } = this.state.metrics;
     let length = this.props.lesson.data.length;
-    console.log("lessonlength", length);
-    // const results = {
-    //   percentCorrect: Math.round(
-    //     (parseInt(correct) / (parseInt(correct) + parseInt(wrong))) * 100
-    //   ),
-    // };
+
     const results = {
       percentCorrect: Math.round((parseInt(correct) / length) * 100),
     };
@@ -112,7 +105,7 @@ class TextArea extends Component {
       event.preventDefault();
       this.setState({
         keyIndex: this.state.keyIndex + 1,
-        //keyValue: true,
+
         metrics: {
           correct: this.state.metrics.correct,
           wrong: this.state.metrics.wrong,
@@ -156,10 +149,6 @@ class TextArea extends Component {
   render() {
     return (
       <>
-        {/* {this.props.lesson.loaded
-          ? JSON.stringify(this.props.lesson.data.length)
-          : null} */}
-
         <pre
           contentEditable="true"
           className="lessonContainer"

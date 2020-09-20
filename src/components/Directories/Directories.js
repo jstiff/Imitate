@@ -22,7 +22,6 @@ class Directories extends Component {
     return (
       <>
         <div className="directoryFilesWrapper">
-          {/* {JSON.stringify(this.props.directoryTree)} */}
           {this.props.directoryTree.data.map((file) => {
             return (
               <Link to={"/lesson"}>

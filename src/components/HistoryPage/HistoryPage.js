@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-//import { Link } from "react-router-dom";
 import Comment from "../Comment/Comment";
 
 class HistoryPage extends Component {
@@ -114,7 +113,6 @@ class HistoryPage extends Component {
 }
 const mapStateToProps = (state) => ({
   user: state.user,
-  //lesson: state.lessonText,
   gitHub: state.apiReducer,
   history: state.historyReducer,
   temp: state.tempReducer[3],

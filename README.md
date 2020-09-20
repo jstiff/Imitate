@@ -4,27 +4,27 @@ Application that allows users to study their favorite programers code and practi
 
 This application uses the GitHub API, React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
 
-## Login page
+### Login page
 
 ![Image of User Page](./public/login.png)
 
-## Search GitHub by providing any GitHub users username into the input field.
+### Search GitHub by providing any GitHub users username into the input field.
 
 ![Image of User Page](./public/Imitate-user-page.png)
 
-## Prompt shows users Avatar and makes sure that's who you chose.
+### Prompt shows the searched users Avatar. Provides a choice to continue on to search or return back and search for another programmer .
 
 ![Image of User Page](./public/prompt.png)
 
-## Table listing Users Repos that can be searched.
+### Table listing Users Repos that can be searched.
 
 ![Image of User Page](./public/resultsTable.png)
 
-## Lesson page that allows you to practice your typing skills over your favorite Programmers GitHub code.
+### Lesson page that allows you to practice your typing skills over your favorite Programmers GitHub code.
 
 ![Image of Lesson Page](./public/lesson-page.png)
 
-## If you clone this Repository.
+### If you clone this Repository.
 
 Make sure you have the following software installed on your computer:
 
