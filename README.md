@@ -24,6 +24,10 @@ This application uses the GitHub API, React, Redux, Express, Passport, and Postg
 
 ![Image of Lesson Page](./public/lesson-page.png)
 
+### History page lists out all of your lessons with scores and comment sections.
+
+![Image of User Page](./public/history.png)
+
 ### If you clone this Repository.
 
 Make sure you have the following software installed on your computer:
