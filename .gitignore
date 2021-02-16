@@ -1,7 +1,11 @@
 # Mac Auto-Generated Files
 .DS_Store
 .DS_STORE/
-
+/target
+/server/rust_server/target
+Cargo.lock
+/server/rust_server/Cargo.lock
+PostmanPrimeSoloRoutes.json
 # Logs
 logs
 *.log

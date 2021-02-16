@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class LoginPage extends Component {
   state = {
@@ -70,7 +71,12 @@ class LoginPage extends Component {
                 value="Log In"
               />
             </div>
+            
           </form>
+          <Link to="/hello/jason">
+          <button>Rust server!</button>
+          </Link>
+          
         </div>
         <center>
           <button
