@@ -35,7 +35,8 @@ function* getHistory(action) {
     // allow the server session to recognize the user
     // If a user is logged in, this will return their information
     // from the server session (req.user)
-    const response = yield axios.get("/api/user/history", config);
+    console.log('History GET')
+    const response = yield axios.get("/api/user/history");
 
     // now that the session has given us a user object
     // with an id and username set the client-side user object to let
@@ -46,15 +47,14 @@ function* getHistory(action) {
   }
 }
 function* sendLessonResults(action) {
+  
   try {
     const config = {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
     console.log("FART", action.payload);
-    const response = yield axios.post("/api/user/results", config, {
-      data: action.payload,
-    });
+    const response = yield axios.post("/api/user/results", action.payload , config);
   } catch (error) {
     console.log("Lesson results POST failed", error);
   }

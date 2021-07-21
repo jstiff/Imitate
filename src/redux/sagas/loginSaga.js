@@ -3,6 +3,11 @@ import axios from "axios";
 
 // worker Saga: will be fired on "LOGIN" actions
 function* loginUser(action) {
+  console.log("action object:::", action.payload.username)
+  
+  
+  
+  
   try {
     // clear any existing error on the login page
     yield put({ type: "CLEAR_LOGIN_ERROR" });
@@ -11,11 +16,13 @@ function* loginUser(action) {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
-
+     
+    
     // send the action.payload as the body
     // the config includes credentials which
     // allow the server session to recognize the user
-    yield axios.post("/api/user/login", action.payload, config);
+    
+      yield axios.post("/api/user/login", action.payload, config);
 
     // after the user has logged in
     // get the user information from the server
@@ -34,7 +41,10 @@ function* loginUser(action) {
     }
   }
 }
-
+function* handleRust(action){
+  axios.get("http://127.0.0.1:5050/from_app");
+  yield console.log("Rust endpoint worked");
+}
 // worker Saga: will be fired on "LOGOUT" actions
 function* logoutUser(action) {
   try {
@@ -47,6 +57,8 @@ function* logoutUser(action) {
     // allow the server session to recognize the user
     // when the server recognizes the user session
     // it will end the session
+    
+
     yield axios.post("/api/user/logout", config);
 
     // now that the session has ended on the server
@@ -62,6 +74,7 @@ function* logoutUser(action) {
 function* loginSaga() {
   yield takeLatest("LOGIN", loginUser);
   yield takeLatest("LOGOUT", logoutUser);
+  yield takeLatest("RUST", handleRust);
 }
 
 export default loginSaga;
