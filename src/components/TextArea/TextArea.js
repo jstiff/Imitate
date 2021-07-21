@@ -67,15 +67,13 @@ class TextArea extends Component {
         percent_correct: results.percentCorrect,
       },
     });
-    console.log("BEFORE METRICS SENT");
-    this.sendMetrics();
+    console.log("BEFORE METRICS SENT", this.props.lessonResultData);
+    
+  
+  
+    
   };
-  sendMetrics = () => {
-    this.props.dispatch({
-      type: "SEND_LESSON_DATA_TO_SERVER",
-      payload: this.props.lessonResultData,
-    });
-  };
+  
 
   handleKeyPress = (event, index) => {
     console.log("EVENT", event.key, this.state.keyIndex);
