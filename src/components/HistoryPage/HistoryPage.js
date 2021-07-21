@@ -11,6 +11,7 @@ class HistoryPage extends Component {
   };
 
   getHistoryData = () => {
+    console.log("HISTORY CLICKED")
     this.props.dispatch({ type: "GET_HISTORY" });
   };
 

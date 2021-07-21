@@ -12,6 +12,7 @@ function* addUserScore(action) {
 }
 
 function* addToHistTemp(action) {
+  console.log("SAGA **", action.payload)
   try {
     yield put({
       type: "LOAD_INTO_TEMP",

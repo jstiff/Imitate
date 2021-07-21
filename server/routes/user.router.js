@@ -55,12 +55,17 @@ router.get("/history", rejectUnauthenticated, (req, res) => {
         data: result.rows,
       });
     })
-    .catch(() => res.sendStatus(500));
+    .catch(() => {res.sendStatus(500)
+      console.log("eRror LLL HISTORY")
+    });
 });
 
 // Handles Ajax request for user information if user is authenticated
 router.get("/", rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
+  console.log("/cookies", req.cookies);
+  console.log("/body", req.body);
+  console.log("/user", req.user);
   res.send(req.user);
 });
 
@@ -82,17 +87,20 @@ router.post("/register", (req, res, next) => {
 });
 
 router.post("/results", rejectUnauthenticated, async (req, res, next) => {
+  console.log("RESPONSE SERVER",req.body )
   const time = moment().format("LLLL");
   const fav_coder = req.body[0];
   const lessonUserId = req.user.id;
   const repos = req.body[1];
   const chosen_file = req.body[2];
   const percent_correct = req.body[3];
-  console.log(req.body);
+  // inconst user_id = req.user.id;
+  console.log("%%%%",req.user);
   const connection = await pool.connect();
 
   try {
-    console.log("results", req.body);
+    // for(let i in req.body){ console.log("POOP", i)};
+    //console.log("results *****", );
     const fav_coder_query = `INSERT INTO fav_coders (name, user_name, avatar_url) VALUES ($1, $2, $3) RETURNING id;`;
 
     const joinTableQuery = `INSERT INTO  "user_favCoder" (user_id, fav_coder_id) VALUES ($1,$2);`;
@@ -130,6 +138,7 @@ router.post("/results", rejectUnauthenticated, async (req, res, next) => {
       percent_correct.percent_correct,
       time,
       fileId,
+      
     ]);
 
     await connection.query("COMMIT;");
@@ -148,6 +157,9 @@ router.post("/results", rejectUnauthenticated, async (req, res, next) => {
 // this middleware will run our POST if successful
 // this middleware will send a 404 if not successful
 router.post("/login", userStrategy.authenticate("local"), (req, res) => {
+  console.log("/login..cookies", req.cookies);
+  console.log("body", req.body);
+  console.log("user", req.user);
   res.sendStatus(200);
 });
 
