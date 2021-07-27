@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector} from "react-redux";
-
+import "../../dist/style.css";
 const SearchUser = () => {
 	const user = useSelector(state => state.user);
 	const dispatch = useDispatch();
@@ -18,8 +18,9 @@ const SearchUser = () => {
 	      };
 
 	      return (
-		<div>
+		<div className="SearchUser">
 		  <h2 className="homeWelcome">
+		<h1 className="text-blue-400 font-extrabold"> tailwinds</h1>
 		    Welcome {user.first_name},{" "}
 		    <span style={{ marginLeft: "10px" }}></span>search GitHub for your
 		    favorite developer!

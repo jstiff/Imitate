@@ -5,7 +5,8 @@ import UserPage from "../UserPage/UserPage";
 import LessonPage from "../LessonPage/LessonPage";
 import HistoryPage from "../HistoryPage/HistoryPage";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import "./App.css";
+//import "./App.css";
+import "tailwindcss/tailwind.css";
 
 import React, { useEffect} from "react";
 import { useDispatch } from "react-redux";
