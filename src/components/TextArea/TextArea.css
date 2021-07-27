@@ -24,3 +24,17 @@ span {
     background-color: #0e262e;
   }
 } */
+/* 
+span {
+  color: #fff;
+  padding: 10px;
+  display: inline-block;
+  border-radius: 5px;
+  font-family: "Lato", sans-serif;
+  animation: blinkingBackground 2s infinite;
+} */
+
+.Spans {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}

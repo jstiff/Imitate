@@ -27,6 +27,7 @@ const App = () => {
 	return (
 		<Router>
 		  <div>
+			  <h1>tailwind</h1>
 		    <Nav />
 		    <Switch>
 		      <Redirect exact from="/" to="/home" />

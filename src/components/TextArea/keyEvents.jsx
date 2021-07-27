@@ -13,7 +13,7 @@ const keyEventsHandler = (event, index, lesson, setKeyState, key) => {
 	
     
 	if (event.key === lesson.data[index]) {
-	  console.log("success");
+	  console.log("success", event.key, lesson.data[index]);
     
 	  setKeyState((prevKeyState) => (
 		  { ...prevKeyState, 
@@ -47,17 +47,18 @@ const keyEventsHandler = (event, index, lesson, setKeyState, key) => {
 	      lessonLength: lesson.length,
 	    },
 	  }));
-	} else if (event.shiftKey && event.key !== lesson.data[index]) {
-	  console.log("wrong");
-	  setKeyState((prevKeyState)=>({
-		  ...prevKeyState,
-	    keyValue: false,
-	    metrics: {
-	      correct: key.metrics.correct,
-	      wrong: key.metrics.wrong + 1,
-	      lessonLength: lesson.length,
-	    },
-	  }));
+	} else if (event.key === "Shift" && event.key !== lesson.data[index]) {
+	  console.log("SHIFT");
+	  
+	//   setKeyState((prevKeyState)=>({
+	// 	  ...prevKeyState,
+	//     keyValue: false,
+	//     metrics: {
+	//       correct: key.metrics.correct,
+	//       wrong: key.metrics.wrong + 1,
+	//       lessonLength: lesson.length,
+	//     },
+	//   }));
 	} else if (event.shiftKey && event.key === lesson.data[index]) {
 	  setKeyState((prevKeyState)=> ({
 		  ...prevKeyState, 
@@ -81,6 +82,43 @@ const keyEventsHandler = (event, index, lesson, setKeyState, key) => {
 	    },
 	  }));
 	}
+
+	// switch (event) {
+	// 	case (event.key === lesson.data[index]):
+	// 	  setKeyState((prevKeyState) => (
+	// 		  { ...prevKeyState, 
+	// 	    keyIndex: key.keyIndex + 1,
+	// 	    keyValue: true,
+	// 	    metrics: {
+	// 	      correct: key.metrics.correct + 1,
+	// 	      wrong: key.metrics.wrong,
+	// 	      lessonLength: lesson.data.length,
+	// 	    },
+	// 	  }));
+	// 	  case ("Backspace" || event.key === "Delete"):
+	// 		  setKeyState((prevKeyState) => ({
+	// 			  ...prevKeyState, 
+	// 		      keyIndex: key.keyIndex - 1,
+	// 		      keyValue: true,
+	// 		    }));
+	// 	  case (
+	// 		   "Return" ||
+	// 		  ("Enter" && lesson.data[index] == "\n")
+	// 		):event.preventDefault();
+	// 		setKeyState((prevKeyState) => ({
+	// 		      ...prevKeyState, 
+	// 		  keyIndex: key.keyIndex + 1,
+		  
+	// 		  metrics: {
+	// 		    correct: key.metrics.correct,
+	// 		    wrong: key.metrics.wrong,
+	// 		    lessonLength: lesson.length,
+	// 		  },
+	// 		}));
+	// 
+	// 	//   default: alert("POOP");
+	  
+	// 	  }
 	event.preventDefault();
       };
 	      
@@ -92,3 +130,6 @@ const keyEventsHandler = (event, index, lesson, setKeyState, key) => {
 	 
 	 
 export default keyEventsHandler;
+
+
+

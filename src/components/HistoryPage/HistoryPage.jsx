@@ -75,9 +75,9 @@ const HistoryPage = () => {
 			    <th>edit Comments</th>
 			    <th>delete</th>
 			  </tr>
-			  {history.data.map((score) => {
+			  {history.data.map((score, index) => {
 			    return (
-			      <tr>
+			      <tr key={index}>
 				<td>
 				  <img
 				    className="avatar"

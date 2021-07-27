@@ -22,12 +22,12 @@ const TextArea = () => {
 
 	useEffect(() => {
 		document.getElementsByTagName("pre")[0].focus();
-		setKeyState((prevKeyState)=> (
-			{
-				...prevKeyState, 
-				keyValue:true}));
+		
 	}) 
-
+	// setKeyState((prevKeyState)=> (
+	// 	{
+	// 		...prevKeyState, 
+	// 		keyValue:true}));
 
 	const style = {
 		height: "auto",
@@ -160,7 +160,8 @@ const TextArea = () => {
 	return (
 		<>
 		  <pre
-		    contentEditable="true"
+		    contentEditable={true}
+		    suppressContentEditableWarning={true}
 		    className="lessonContainer"
 		    style={style}
 		    onKeyDown={(event) => keyEventsHandler(event, key.keyIndex, lesson, setKeyState, key)}
@@ -169,6 +170,8 @@ const TextArea = () => {
 		      ? lesson.data.map((letter, index) => {
 			  return (
 			    <span
+			      className = "Spans"
+			      key={index}
 			      style={
 				key.keyValue && index === key.keyIndex
 				  ? styleCorrect
