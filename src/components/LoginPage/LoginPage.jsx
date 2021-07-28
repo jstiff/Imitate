@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory} from "react-router-dom";
 
 
 const LoginPage = () => {
+	const history = useHistory();
 	const errors = useSelector(state => state.errors);
 	const dispatch = useDispatch();
 	const [login, setLogin] = useState({
@@ -14,6 +16,7 @@ const LoginPage = () => {
 		event.preventDefault();
 	    
 		if (login.username && login.password) {
+			
 		  dispatch({
 		    type: "LOGIN",
 		    payload: {
@@ -24,6 +27,7 @@ const LoginPage = () => {
 		} else {
 		  dispatch({ type: "LOGIN_INPUT_ERROR" });
 		}
+		history.push("/user");
 	      }; // end login
 	    
 	const handleInputChangeFor = (propertyName) => (event) => {
@@ -76,7 +80,7 @@ const LoginPage = () => {
 		    </form>
 		  </div>
 		  <center>
-		    <button
+		    {/* <button
 		      type="button"
 		      className="link-button"
 		      onClick={() => {
@@ -84,7 +88,7 @@ const LoginPage = () => {
 		      }}
 		    >
 		      Register
-		    </button>
+		    </button> */}
 		  </center>
 		</div>
 	      );

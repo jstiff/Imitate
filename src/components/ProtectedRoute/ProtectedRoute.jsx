@@ -2,6 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import LoginPage from "../LoginPage/LoginPage";
+import HomePage from "../HomePage/HomePage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 
 
@@ -20,13 +21,10 @@ let ComponentToShow;
   if (user.id) {
    
     ComponentToShow = ComponentToProtect;
-  } else if (loginMode === "login") {
+  } else if (loginMode === "home") {
   
-    ComponentToShow = LoginPage;
-  } else {
-    
-    ComponentToShow = RegisterPage;
-  }
+    ComponentToShow = HomePage;
+  } 
 
   return (
 	<Route
@@ -41,3 +39,9 @@ let ComponentToShow;
 
 
 export default ProtectedRoute;
+
+
+// else if (loginMode === "home"){
+    
+//   ComponentToShow = HomePage;
+// }
