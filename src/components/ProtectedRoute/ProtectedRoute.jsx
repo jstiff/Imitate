@@ -1,9 +1,9 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import LoginPage from "../LoginPage/LoginPage";
-import HomePage from "../HomePage/HomePage";
-import RegisterPage from "../RegisterPage/RegisterPage";
+import LoginPage from "../LandingPage/LoginPage/LoginPage";
+import HomePage from "../LandingPage/HomePage/HomePage";
+import RegisterPage from "../LandingPage/RegisterPage/RegisterPage";
 
 
 const ProtectedRoute = ({component: ComponentToProtect,

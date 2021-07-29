@@ -15,36 +15,46 @@ import {
   SupportIcon,
   ViewGridIcon,
   XIcon,
+  HomeIcon, 
+  
+  UsersIcon, 
+  
 } from '@heroicons/react/outline'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import GitHubLogo from '../GitHubLogo/GitHubLogo';
+import HomePage from "../LandingPage/HomePage/HomePage";
 
-const solutions = [
+const features = [
   {
     name: 'Analytics',
-    description: 'Get a better understanding of where your traffic is coming from.',
+    description: 'Performance statistics on your typing skills.',
     href: '#',
     icon: ChartBarIcon,
+    route: "login"
   },
   {
-    name: 'Engagement',
-    description: 'Speak directly to your customers in a more meaningful way.',
+    name: 'Friends',
+    description: 'Be notified on how your GitHub friends are doing.',
     href: '#',
-    icon: CursorClickIcon,
+    icon: UsersIcon,
+    route: "friends"
   },
-  { name: 'Security', description: "Your customers' data will be safe and secure.", href: '#', icon: ShieldCheckIcon },
+  { name: 'Open source', description: "Easily network on Open source projects you might want to be aprt of.", href: '#', icon: ShieldCheckIcon },
   {
     name: 'Integrations',
     description: "Connect with third-party tools that you're already using.",
     href: '#',
-    icon: ViewGridIcon,
+    icon: HomeIcon,
+    route: "integrations"
   },
   {
-    name: 'Automations',
-    description: 'Build strategic funnels that will drive your customers to convert',
-    href: '#',
-    icon: RefreshIcon,
-  },
+	name: 'Events near you',
+	description: 'See what meet-ups and other events we might be planning near you.',
+	href: '#',
+	icon: CalendarIcon,
+	route: "events"
+      },
+ 
 ]
 const callsToAction = [
   { name: 'Watch Demo', href: '#', icon: PlayIcon },
@@ -61,14 +71,15 @@ const resources = [
     name: 'Guides',
     description: 'Learn how to maximize our platform to get the most out of it.',
     href: '#',
-    icon: BookmarkAltIcon,
+    icon: MenuIcon,
   },
   {
-    name: 'Events',
-    description: 'See what meet-ups and other events we might be planning near you.',
-    href: '#',
-    icon: CalendarIcon,
-  },
+	name: 'Automations',
+	description: 'Build strategic funnels that will drive your customers to convert',
+	href: '#',
+	icon: RefreshIcon,
+      },
+  
   { name: 'Security', description: 'Understand how we take your privacy seriously.', href: '#', icon: ShieldCheckIcon },
 ]
 const recentPosts = [
@@ -82,6 +93,7 @@ function classNames(...classes) {
 }
 
 export default function Nav3() {
+	
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const ghLogin = () => {
@@ -110,7 +122,7 @@ export default function Nav3() {
 		    <img
                     className="h-8 w-auto sm:h-20 inline-block rounded-md"
                     src="squareLogo2.svg"
-                    alt="poop"
+                    alt="open"
 		    /> 
 		    <p className="inline-block ml-2 -mt-2 text-4xl">mitate</p>
 		  {/* <svg src="../dist/favicon.svg"></svg> */}
@@ -127,14 +139,16 @@ export default function Nav3() {
               <Popover.Group as="nav" className="hidden md:flex space-x-10">
                 <Popover className="relative">
                   {({ open }) => (
+			 
                     <>
                       <Popover.Button
+		         
                         className={classNames(
-                          open ? 'text-gray-900' : 'text-gray-500',
+                          open ? 'text-gray-900' : 'text-gray-400',
                           'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                         )}
                       >
-                        <span>Solutions</span>
+                        <span>Features</span>
                         <ChevronDownIcon
                           className={classNames(
                             open ? 'text-gray-600' : 'text-gray-400',
@@ -146,7 +160,7 @@ export default function Nav3() {
 
                       <Transition
                         show={open}
-                        as={Fragment}
+	                as={Fragment}
                         enter="transition ease-out duration-200"
                         enterFrom="opacity-0 translate-y-1"
                         enterTo="opacity-100 translate-y-0"
@@ -158,20 +172,25 @@ export default function Nav3() {
                           static
                           className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2"
                         >
-                          <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                          <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-10 overflow-hidden">
                             <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                              {solutions.map((item) => (
+                              {features.map((item) => (
+				<Link to={`/${item.route}`}>
                                 <a
                                   key={item.name}
                                   href={item.href}
                                   className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                                 >
-                                  <item.icon className="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
-                                  <div className="ml-4">
-                                    <p className="text-base font-medium text-gray-900">{item.name}</p>
-                                    <p className="mt-1 text-sm text-gray-500">{item.description}</p>
-                                  </div>
+					
+                                  <item.icon className="flex-shrink-0 h-6 w-6 text-red-700" aria-hidden="true" />
+				
+				  <Popover.Button className="ml-4">
+                                    <p className="text-base font-medium text-black">{item.name}</p>
+                                    <p className="mt-1 text-sm text-red-700">{item.description}</p>
+                                  </Popover.Button>
+				  
                                 </a>
+				</Link>
                               ))}
                             </div>
                             <div className="px-5 py-5 bg-gray-50 space-y-6 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
@@ -285,7 +304,7 @@ export default function Nav3() {
               <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
 	      
                 <span onClick={go_to_login} className="cursor-pointer whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-                  Sign in
+                  Sign in!
                 </span>
 		
                 <span
@@ -298,9 +317,9 @@ export default function Nav3() {
 		{/* <GitHubLogo /> */}
                
 		<img
-                    className="h-0 w-auto sm:h-16 inline-block rounded-md m-8"
+                    className="h-0 w-auto sm:h-10 inline-block rounded-md m-8"
                     src="gitHub.svg"
-                    alt="poop"
+                    alt="open"
 		    onClick={ghLogin}
 		    /> 
 		
@@ -310,6 +329,7 @@ export default function Nav3() {
           </div>
 
           <Transition
+	  
             show={open}
             as={Fragment}
             enter="duration-200 ease-out"
@@ -321,7 +341,7 @@ export default function Nav3() {
           >
             <Popover.Panel
               focus
-              static
+              transform
               className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
             >
               <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
@@ -341,9 +361,9 @@ export default function Nav3() {
                       </Popover.Button>
                     </div>
                   </div>
-                  <div className="mt-6">
+                  <div className="mt-6">	
                     <nav className="grid gap-y-8">
-                      {solutions.map((item) => (
+                      {features.map((item) => (
                         <a
                           key={item.name}
                           href={item.href}
@@ -358,11 +378,11 @@ export default function Nav3() {
                 </div>
                 <div className="py-6 px-5 space-y-6">
                   <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-		<Link to="/pricing">
+		
                     <span className="text-base font-medium text-gray-900 hover:text-gray-700">
                       Pricing
                     </span>
-		</Link>
+		
 
                     <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
                       Docs
@@ -382,7 +402,7 @@ export default function Nav3() {
                       href="#"
                       className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                     >
-                      Sign up
+                      WHAT???!
                     </a>
                     <p className="mt-6 text-center text-base font-medium text-gray-500">
                       Existing customer?{' '}

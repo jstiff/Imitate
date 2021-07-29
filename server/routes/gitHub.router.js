@@ -7,7 +7,7 @@ const {
 require("dotenv").config();
 
 router.post("/content", rejectUnauthenticated, (req, res) => {
-  const content_url = `${req.body.url}?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
+  const content_url = `${req.body.url}?client_id=${process.env.GITHUB_ClIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}`;
 
   Axios.get(content_url)
     .then((response) => {
@@ -27,7 +27,7 @@ router.post("/content", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/tree", rejectUnauthenticated, (req, res) => {
-  const tree = `https://api.github.com/repos/${req.body.userName}/${req.body.repoName}/git/trees/master?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
+  const tree = `https://api.github.com/repos/${req.body.userName}/${req.body.repoName}/git/trees/master?client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}`;
 
   Axios.get(tree)
     .then((response) => {
@@ -43,7 +43,7 @@ router.post("/tree", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/treeTwo", rejectUnauthenticated, (req, res) => {
-  const tree = `${req.body.url}?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
+  const tree = `${req.body.url}?client_id=${process.env.GITHUB_ClIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}`;
 
   Axios.get(tree)
     .then((response) => {
@@ -59,7 +59,7 @@ router.post("/treeTwo", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/repos", rejectUnauthenticated, (req, res) => {
-  const repos = `https://api.github.com/users/${req.body.userName}/repos?per_page=5?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
+  const repos = `https://api.github.com/users/${req.body.userName}/repos?per_page=5?client_id=${process.env.GITHUB_ClIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}`;
 
   const blob = `https://api.github.com/repos/${req.body.userName}/typing.io-clone/git/blobs/7ae08b964fe2c5511247fabf033f5f8b937abde6?client_id=f00efe0a15d0dd37c99d&client_secret=d4a42f22546157493f204551cbbf9bd`;
 
@@ -76,9 +76,9 @@ router.post("/repos", rejectUnauthenticated, (req, res) => {
     });
 });
 router.post("/", rejectUnauthenticated, (req, res) => {
-  const userInfo = `https://api.github.com/users/${req.body.userName}?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
+  const userInfo = `https://api.github.com/users/${req.body.userName}?client_id=${process.env.GITHUB_ClIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}`;
 
-  const userInfo2 = `https://api.github.com/users/${req.body.userName}/hovercard?subject_type=repository?client_id=${process.env.ClIENT_ID}&client_secret=${process.env.GITHUB_KEY}`;
+  const userInfo2 = `https://api.github.com/users/${req.body.userName}/hovercard?subject_type=repository?client_id=${process.env.GITHUB_ClIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}`;
 
   const testGetRepo = `https://api.github.com/repos/jstiff/typing.io-clone/contents/sourceCode.txt?client_id=f00efe0a15d0dd37c99d&client_secret=d4a42f22546157493f204551cbbf9bd`;
 
