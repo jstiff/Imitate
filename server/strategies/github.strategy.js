@@ -1,19 +1,11 @@
 
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
+const pool = require('../modules/pool');
+require("dotenv").config();
 
 
 
-
-
-
-// Passport session setup.
-//   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.  However, since this example does not
-//   have a database of user records, the complete GitHub profile is serialized
-//   and deserialized.
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -24,15 +16,66 @@ passport.deserializeUser(function(obj, done) {
 
 
 passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
+    clientID: process.env.GITHUB_ClIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+    callbackURL: "http://127.0.0.1:5000/api/user/oauth/github"
   },
-  (accessToken, refreshToken, profile, done) => {
-    console.log("GITHUB OATH", profile);
-    process.nextTick(function () {
-      
-      return done(null, profile);
-    });
+  async (accessToken, refreshToken, profile, done) => {
+    
+    console.log("profile._json", profile._json);
+    const userData = profile._json;
+    const userArray = [userData.id, userData.avatar_url, userData.name, userData.bio, userData.email, userData.hireable, userData.location ];
+    const checkIfExists = `SELECT EXISTS(SELECT 1 FROM "gitHubUser" WHERE "gitHubId" = $1);`; 
+    const existingUser = `SELECT * FROM "gitHubUser" WHERE "gitHubUser"."gitHubId" = $1;`;
+    
+    let user = await pool.query(checkIfExists , [userData.id]);
+    
+    
+    if(!user.rows[0].exists){
+	    console.log("IF ! USER")
+	    const gitHubQuery1 =`INSERT INTO "gitHubUser" ("gitHubId", "avatar", "name", "bio", "email", "hireable", "location") 
+	    VALUES ($1,$2,$3,$4,$5, $6, $7) RETURNING "id";`;
+	    const gitHubQuery = `INSERT INTO "gitHubUser" ("gitHubId", "avatar", "name", "bio", "email", "hireable", "location") 
+	    VALUES ($1,$2,$3,$4,$5, $6, $7) RETURNING "gitHubId", "avatar", "name", "bio", "email", "hireable", "location"`;
+	let userTrue = await pool.query(gitHubQuery1, userArray);
+	console.log("RETURNING ID", user.rows[0]);
+	//user= user.rows[0];
+	// process.nextTick(function () {
+	// 	console.log("NOT USER TICK")
+	// 	return done(null, {
+	// 		user: userTrue.rows[0],
+	// 		accessToken,
+	// 		refreshToken
+	// 	});
+	//       });
+    }else{
+	const foundUser = await pool.query(existingUser, [userData.id]);
+	done(null, {
+		user:foundUser.rows[0],
+		accessToken,
+		refreshToken
+	});
+
+    }
+    
   }
 ));
+
+
+module.exports = passport;
+
+
+
+
+// else{
+// 	const foundUser = await pool.query(existingUser, [userData.id]);
+// 	process.nextTick(function () {
+// 		console.log("ELSE NEXT TICK", user) 
+// 		return done(null, {
+// 			user:foundUser.rows[0],
+// 			accessToken,
+// 			refreshToken
+// 		});
+// 	      });
+
+//     }

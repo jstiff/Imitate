@@ -5,9 +5,33 @@ const {
 const encryptLib = require("../modules/encryption");
 const pool = require("../modules/pool");
 const userStrategy = require("../strategies/user.strategy");
+const passport_oAuth = require("../strategies/github.strategy"); 
+// const cors = require('cors')
+// const corsOptions = {
+//      origin: '*',
+//    }
 const moment = require("moment");
+const { session } = require("../strategies/github.strategy");
 
 const router = express.Router();
+
+router.get("/auth/github",  
+  passport_oAuth.authenticate('github', { session: false }));
+
+router.get('/oauth/github', 
+  passport_oAuth.authenticate('github'),
+  function(req, res) {
+    console.log("*********************************")
+    console.log("GITHUB OAUTH req.user", req.user);
+    console.log("*********************************") 
+    
+    req.session.userId = req.user.user.gitHubId;
+    req.session.accessToken = req.user.accessToken;
+    req.session.refreshToken = req.user.refreshToken;
+    res.sendStatus(200);
+    res.redirect('http://localhost:3000/friends');
+  });
+
 
 router.put("/history/:id", (req, res) => {
   console.log("SERVER PUT ", req.body.data);
@@ -65,7 +89,10 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
   console.log("/cookies", req.cookies);
   console.log("/body", req.body);
-  console.log("/user", req.user);
+  console.log("*********/user************", req.session);
+  console.log("*********/user************", req.cookies);
+  
+  
   res.send(req.user);
 });
 

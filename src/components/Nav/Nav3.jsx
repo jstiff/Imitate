@@ -96,9 +96,10 @@ export default function Nav3() {
 	
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const ghLogin = () => {
-		alert('github')
-	}
+	// const ghLogin = () => {
+	// 	console.log("trying to loging with github")
+	// 	dispatch({type: "GITHUB_OAUTH"})
+	// }
 	const go_to_login = () => {
 		
 		// dispatch({ type: "SET_TO_LOGIN_MODE" });
@@ -315,14 +316,14 @@ export default function Nav3() {
                 </span>
 		<div>
 		{/* <GitHubLogo /> */}
-               
+	       <a href="http://localhost:5000/api/user/auth/github">
 		<img
                     className="h-0 w-auto sm:h-10 inline-block rounded-md m-8"
                     src="gitHub.svg"
                     alt="open"
-		    onClick={ghLogin}
+		    //onClick={ghLogin}
 		    /> 
-		
+		</a>
 		</div> 
               </div>
             </div>
