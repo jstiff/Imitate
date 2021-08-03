@@ -13,10 +13,7 @@ import RegisterPage from "../LandingPage/RegisterPage/RegisterPage";
 import FriendsPreviewPage from "../LandingPage/FriendsPreviewPage/FriendsPreviewPage";
 import "./App.css";
 import "tailwindcss/tailwind.css";
-import io from 'socket.io-client'
-import OAuth from './OAuth'
-import Loading from './Loading'
-import TestOauth from "../TestOauth";
+
 
 import React, { useEffect} from "react";
 import { useDispatch } from "react-redux";
@@ -30,6 +27,7 @@ import {
 
 
 const App = () => {
+	
         const dispatch = useDispatch();
 	useEffect(() =>{
 		dispatch({ type: "FETCH_USER" });
@@ -39,7 +37,7 @@ const App = () => {
 		<Router>
 		  <div>
 		    <Nav3 />
-		    <TestOauth />
+		    
 		    <Switch>
 		      <Route exact path="/" component={HomePage} />
 		      <Route exact path="/login" component={LoginPage} />
