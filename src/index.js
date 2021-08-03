@@ -8,7 +8,6 @@ import rootReducer from './redux/reducers'; // imports ./redux/reducers/index.js
 import rootSaga from './redux/sagas'; // imports ./redux/sagas/index.js
 import App from './components/App/App';
 import "./tailwind.css"
-import TestOauth from "./components/App/TestOauth";
 
 const sagaMiddleware = createSagaMiddleware();
 

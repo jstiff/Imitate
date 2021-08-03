@@ -1,16 +1,8 @@
 require("dotenv").config();
 const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const https = require('https');
-const http = require('http');
-const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
-const socketio = require('socket.io');
-const authRouter = require('./lib/auth.router');
-const passportInit = require('./lib/passport.init');
-const { SERVER_SESSION_SECRET, CLIENT_ORIGIN } = require('./config');
+const app = express();
 
 
 
@@ -19,7 +11,6 @@ const { SERVER_SESSION_SECRET, CLIENT_ORIGIN } = require('./config');
 
 const bodyParser = require("body-parser");
 const sessionMiddleware = require("./modules/session-middleware");
-
 const passport = require("./strategies/user.strategy");
 const passport_oAuth = require("./strategies/github.strategy");
 
@@ -40,13 +31,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Passport Session Configuration //
+
 app.use(sessionMiddleware);
- app.use(passport_oAuth.initialize());
- app.use(passport_oAuth.session());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(passport_oAuth.initialize());
+app.use(passport_oAuth.session());
 
 
 
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 app.use("/api/user", userRouter);
 app.use("/api/gitHub/", gitHubRouter);
 

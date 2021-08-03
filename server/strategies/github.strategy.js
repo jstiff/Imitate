@@ -2,7 +2,7 @@
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const pool = require('../modules/pool');
-require("dotenv").config();
+
 
 
 
@@ -16,8 +16,8 @@ passport.deserializeUser(function(obj, done) {
 
 
 passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_ClIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    clientID: process.env.ID,
+    clientSecret: process.env.SECRET,
     callbackURL: "http://127.0.0.1:5000/api/user/oauth/github"
   },
   async (accessToken, refreshToken, profile, done) => {
@@ -39,15 +39,7 @@ passport.use(new GitHubStrategy({
 	    VALUES ($1,$2,$3,$4,$5, $6, $7) RETURNING "gitHubId", "avatar", "name", "bio", "email", "hireable", "location"`;
 	let userTrue = await pool.query(gitHubQuery1, userArray);
 	console.log("RETURNING ID", user.rows[0]);
-	//user= user.rows[0];
-	// process.nextTick(function () {
-	// 	console.log("NOT USER TICK")
-	// 	return done(null, {
-	// 		user: userTrue.rows[0],
-	// 		accessToken,
-	// 		refreshToken
-	// 	});
-	//       });
+	
     }else{
 	const foundUser = await pool.query(existingUser, [userData.id]);
 	done(null, {
