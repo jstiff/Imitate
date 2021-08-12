@@ -15,22 +15,29 @@ const { session } = require("../strategies/github.strategy");
 
 const router = express.Router();
 
-router.get("/auth/github",  
-  passport_oAuth.authenticate('github', { session: false }));
+ 
 
-router.get('/oauth/github', 
-  passport_oAuth.authenticate('github'),
-  function(req, res) {
-    console.log("*********************************")
-    console.log("GITHUB OAUTH req.user", req.user);
-    console.log("*********************************") 
+
+
+
+// *************passport implementation of oAuth*************************
+
+// router.get("/auth/github",  
+//   passport_oAuth.authenticate('github', { session: false }));
+
+// router.get('/oauth/github', 
+//   passport_oAuth.authenticate('github'),{ session: false },
+//   function(req, res) {
+//     console.log("*********************************")
+//     console.log("GITHUB OAUTH req.user", req.user);
+//     console.log("*********************************") 
     
-    req.session.userId = req.user.user.gitHubId;
-    req.session.accessToken = req.user.accessToken;
-    req.session.refreshToken = req.user.refreshToken;
-    res.sendStatus(200);
-    res.redirect('http://localhost:3000/friends');
-  });
+//     req.session.userId = req.user.user.gitHubId;
+//     req.session.accessToken = req.user.accessToken;
+//     req.session.refreshToken = req.user.refreshToken;
+//     res.sendStatus(200);
+//     res.redirect('http://localhost:3000');
+//   });
 
 
 router.put("/history/:id", (req, res) => {

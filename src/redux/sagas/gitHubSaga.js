@@ -109,7 +109,7 @@ function* gitHubSaga() {
   yield takeLatest("GET_REPO_TREE", getRepoTree);
   yield takeLatest("GET_REPO_CONTENT", getRepoContent);
   yield takeLatest("GET_ADDITIONAL_TREE", getDirectoryTree);
-  yield takeLatest("GITHUB_OAUTH", gitHubLogIn);
+  // yield takeLatest("GITHUB_OAUTH", gitHubLogIn);
 }
 
 export default gitHubSaga;

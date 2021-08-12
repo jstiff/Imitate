@@ -1,4 +1,13 @@
-//import Nav2 from "../Nav/Nav2";
+import React, { createContext, useReducer, useEffect } from 'react';
+import { useDispatch , useSelector} from "react-redux";
+import {
+	HashRouter as Router,
+	Route,
+	Redirect,
+	Switch,
+      } from "react-router-dom";
+import "tailwindcss/tailwind.css";
+import "./App.css";
 import Nav3 from "../Nav/Nav3";
 import Footer from "../Footer/Footer";
 import AboutPage from "../LandingPage/AboutPage/AboutPage";
@@ -11,31 +20,65 @@ import HomePage from "../LandingPage/HomePage/HomePage";
 import LoginPage from "../LandingPage/LoginPage/LoginPage";
 import RegisterPage from "../LandingPage/RegisterPage/RegisterPage";
 import FriendsPreviewPage from "../LandingPage/FriendsPreviewPage/FriendsPreviewPage";
-import "./App.css";
-import "tailwindcss/tailwind.css";
+import loginMode from "../../redux/reducers/loginModeReducer";
+import oAuth_reducer from '../../redux/reducers/oAuth_reducer';
+
+//export const AuthContext = createContext();
 
 
-import React, { useEffect} from "react";
-import { useDispatch } from "react-redux";
-
-import {
-	HashRouter as Router,
-	Route,
-	Redirect,
-	Switch,
-      } from "react-router-dom";
 
 
 const App = () => {
+	const dispatch_to_login_saga = useDispatch();
+	useEffect(() => { 
+	        console.log('in App.js useEFFECT');
+	        dispatch_to_login_saga({type:"GITHUB_OAUTH" })
+		
+	},[]);
+
+
 	
-        const dispatch = useDispatch();
-	useEffect(() =>{
-		dispatch({ type: "FETCH_USER" });
-   	})
+	
+	// const startState = {
+	// 	isLoggedIn: false,
+	// 	user: null,
+	// 	client_id: "",
+	// 	redirect_uri:"",
+	// 	client_secret: "",
+	// 	proxy_url: "", 
+	// 	loaded: false,
+	//       };
+	  
+	 
+	//const [logInState, dispatch] = useReducer(loginMode, startState);
+	
+	
+	// const oAuth_data = useSelector(state => state.oAuth_reducer);
+	// console.log("logInState:::", oAuth_data)
+
+
+
+	      
+	
+	    
+	
+	
+        
+	
+
+	
+	//console.log("STATE", state)
+	
+        // const dispatch = useDispatch();
+	// useEffect(() =>{
+	// 	dispatch({ type: "FETCH_USER" });
+   	// })
 
 	return (
+		
+		
 		<Router>
-		  <div>
+		  
 		    <Nav3 />
 		    
 		    <Switch>
@@ -50,9 +93,11 @@ const App = () => {
 		      <Route exact path="/pricing" component={PricingPage} />
 		      <Route render={() => <h1>404</h1>} />
 		    </Switch>
+		    
 		    <Footer />
-		  </div>
+		  
 		</Router>
+		
 	      );
 }
 
@@ -66,3 +111,12 @@ export default App;
 {/* <Redirect exact from="/" to="/home" />
 		      <ProtectedRoute exact path="/home" component={HomePage} />
 		      <ProtectedRoute exact path="/home" component={UserPage} /> */}
+
+
+	// 	      <AuthContext.Provider
+	// 	value={{
+	// 	  logInState, 
+	// 	  dispatch
+		 
+	// 	}}
+	//       ></AuthContext.Provider>

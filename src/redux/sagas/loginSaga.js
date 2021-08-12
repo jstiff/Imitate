@@ -2,6 +2,20 @@ import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 // worker Saga: will be fired on "LOGIN" actions
+
+function* getLoginState(action) {
+ console.log('getLoginState SAGA reached')
+  try{
+     const response = yield axios.get("/authenticate/userState");
+    
+     yield put({ type: "SET_SERVER_DATA", payload: response.data})
+  }catch (error) {
+    console.log("ERROR in getLoginState SAGA", error)
+  }  
+}
+
+
+
 function* loginUser(action) {
   console.log("action object:::", action.payload.username)
   try {
@@ -71,6 +85,7 @@ function* loginSaga() {
   yield takeLatest("LOGIN", loginUser);
   yield takeLatest("LOGOUT", logoutUser);
   yield takeLatest("RUST", handleRust);
+  yield takeLatest("GITHUB_OAUTH", getLoginState )
 }
 
 export default loginSaga;

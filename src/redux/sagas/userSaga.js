@@ -82,6 +82,17 @@ function* editComments(action) {
     console.log("User get request failed", error);
   }
 }
+function* oAuth_fetch(action){
+  try{
+    console.log("inside oAuth_fetch saga")
+    const response = yield axios.get('http://localhost:5000/authenticate');
+    yield console.log("oauth saga response", response.data)
+    yield put({type: "LOAD_GITHUB_USER",payload: response.data})
+  }catch(error) {
+    console.log("ERROR oAuth_fetch SAGA", error);
+  }
+  
+}
 
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
@@ -89,6 +100,7 @@ function* userSaga() {
   yield takeLatest("SEND_LESSON_DATA_TO_SERVER", sendLessonResults);
   yield takeLatest("DELETE_LESSON_HISTORY", deleteLesson);
   yield takeLatest("EDIT_COMMENTS", editComments);
+  yield takeLatest("FETCH_TO_AUTHORIZE", oAuth_fetch);
 }
 
 export default userSaga;
