@@ -91,10 +91,14 @@ router.post("/login/callback", cors(), (req, res) =>  {
 			return response.text()
 			 })
 		  .then((paramsString) => {
-	            
+	            console.log("POOOOOOP", paramsString)
 		    let params = new URLSearchParams(paramsString);
 		    const access_token = params.get("access_token");
-		    
+		    // What to do with the access_token????*********
+
+				// session/token store??
+
+		    //******************************************* */
 		    // Request to return data of a user that has been authenticated
 		    return fetch(`https://api.github.com/user`, {
 			headers: {

@@ -36,7 +36,7 @@ function* getHistory(action) {
     // allow the server session to recognize the user
     // If a user is logged in, this will return their information
     // from the server session (req.user)
-    console.log('History GET')
+    console.log("History GET");
     const response = yield axios.get("/api/user/history");
 
     // now that the session has given us a user object
@@ -48,14 +48,17 @@ function* getHistory(action) {
   }
 }
 function* sendLessonResults(action) {
-  
   try {
     const config = {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
     console.log("FART", action.payload);
-    const response = yield axios.post("/api/user/results", action.payload , config);
+    const response = yield axios.post(
+      "/api/user/results",
+      action.payload,
+      config
+    );
   } catch (error) {
     console.log("Lesson results POST failed", error);
   }
@@ -82,16 +85,15 @@ function* editComments(action) {
     console.log("User get request failed", error);
   }
 }
-function* oAuth_fetch(action){
-  try{
-    console.log("inside oAuth_fetch saga")
-    const response = yield axios.get('http://localhost:5000/authenticate');
-    yield console.log("oauth saga response", response.data)
-    yield put({type: "LOAD_GITHUB_USER",payload: response.data})
-  }catch(error) {
+function* oAuth_fetch(action) {
+  try {
+    console.log("inside oAuth_fetch saga");
+    const response = yield axios.get("http://localhost:5000/authenticate");
+    yield console.log("oauth saga response", response.data);
+    yield put({ type: "LOAD_GITHUB_USER", payload: response.data });
+  } catch (error) {
     console.log("ERROR oAuth_fetch SAGA", error);
   }
-  
 }
 
 function* userSaga() {
