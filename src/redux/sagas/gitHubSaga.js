@@ -85,31 +85,12 @@ function* getRepoContent(action) {
   });
 }
 
-function* gitHubLogIn(action){
-  console.log('GIT HUB SAGA REACHED');
-  const config = {
-    headers: { "Content-Type": "application/json" },
-    withCredentials: true,
-  };
-  try{
-    console.log("INSIDE AXIOS.GET")
-    const response = yield axios.get("http://localhost:5000/api/user/auth/github");
-    yield console.log("oAUTH RESPONSE", response);
-  }
-  catch (error){
-    console.log("GitHubLogin ERROR", error);
-
-  }
-  
-}
-
 function* gitHubSaga() {
   yield takeLatest("FETCH_GITHUB_USER", queryForUser);
   yield takeLatest("GET_REPOS", getUserRepos);
   yield takeLatest("GET_REPO_TREE", getRepoTree);
   yield takeLatest("GET_REPO_CONTENT", getRepoContent);
   yield takeLatest("GET_ADDITIONAL_TREE", getDirectoryTree);
-  // yield takeLatest("GITHUB_OAUTH", gitHubLogIn);
 }
 
 export default gitHubSaga;

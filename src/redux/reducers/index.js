@@ -18,9 +18,9 @@ import oAuth_reducer from "./oAuth_reducer";
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
-   // will have a value of 'login' or 'registration' to control which screen is shown
+  // will have a value of 'login' or 'registration' to control which screen is shown
   user,
-  loginMode,
+
   oAuth_reducer,
   apiReducer,
   reposReducer,

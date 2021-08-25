@@ -5,18 +5,18 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const config = {
   client_id: process.env.GITHUB_CLIENT_ID,
-  redirect_uri: process.env.IMITATE_REDIRECT_URI,
+  home_redirect_url: process.env.IMITATE_REDIRECT_URL,
   client_secret: process.env.GITHUB_CLIENT_SECRET,
-  proxy_url: process.env.IMITATE_PROXY_URL, 
-  loaded: true, 
+  proxy_url: process.env.IMITATE_PROXY_URL,
+  loaded: true,
 };
 
 const envVarsSchema = Joi.object({
   client_id: Joi.string().required(),
-  redirect_uri: Joi.string().required(),
+  home_redirect_url: Joi.string().required(),
   client_secret: Joi.string().required(),
   proxy_url: Joi.string().required(),
-  loaded: Joi.boolean().required()
+  loaded: Joi.boolean().required(),
 });
 
 const { error } = envVarsSchema.validate(config);

@@ -1,72 +1,45 @@
 require("dotenv").config();
-const express = require('express');
-const session = require('express-session');
-const cors = require('cors');
-const bodyParser = require("body-parser");
+const express = require("express");
+const cors = require("cors");
+//const bodyParser = require("body-parser");
+const passport = require("passport");
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.json({ type: "text/*" }));
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-
-
-
+const cookieParser = require("cookie-parser");
 const sessionMiddleware = require("./modules/session-middleware");
-const passport = require("./strategies/user.strategy");
-const passport_oAuth = require("./strategies/github.strategy");
+
+app.use(express.json());
+app.use(express.json({ type: "text/*" }));
+app.use(express.urlencoded({ extended: true }));
 
 //Route includes
 const userRouter = require("./routes/user.router");
 const gitHubRouter = require("./routes/gitHub.router");
 const oAuthRouter = require("./routes/oAuth.router");
 
-const corsOptions = {
-  credentials: true, 
-  origin: 'http://localhost:3000',
-}
-
-
-app.set("trust proxy", 1);
-//app.use(cors(corsOptions));
-
-
-
-
-
-
-
-// Body parser middleware
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-
 //Passport Session Configuration //
-
+//app.use(cookieParser());
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(passport_oAuth.initialize());
-app.use(passport_oAuth.session());
+// app.use((req, res, next) => {
+//   console.log("APP.USE REQUEST");
+//   next();
+// });
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  })
+);
 
-
-
-//app.use(cors(corsOptions));
-app.use("/api/user", userRouter);
-app.use("/api/gitHub/", gitHubRouter);
 app.use("/authenticate", oAuthRouter);
+app.use("/api/user/", userRouter);
+app.use("/api/gitHub/", gitHubRouter);
 
 //Serve static files
-app.use(express.static("build"));
-
-
+//app.use(express.static("public"));
 
 // App Set //
 const PORT = process.env.PORT || 5000;

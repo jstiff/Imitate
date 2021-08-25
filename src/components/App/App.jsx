@@ -1,7 +1,7 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Route,
   Redirect,
   Switch,
@@ -20,52 +20,48 @@ import HomePage from "../LandingPage/HomePage/HomePage";
 import LoginPage from "../LandingPage/LoginPage/LoginPage";
 import RegisterPage from "../LandingPage/RegisterPage/RegisterPage";
 import FriendsPreviewPage from "../LandingPage/FriendsPreviewPage/FriendsPreviewPage";
+import ProfilePage from "../../components/LandingPage/ProfilePage/ProfilePage";
 import loginMode from "../../redux/reducers/loginModeReducer";
 import oAuth_reducer from "../../redux/reducers/oAuth_reducer";
+import RedirectLoader from "../RedirectLoader/RedirectLoader";
 
 //export const AuthContext = createContext();
 
 const App = () => {
-  const dispatch_to_login_saga = useDispatch();
+  const oAuth_reducer = useSelector((state) => state.oAuth_reducer);
+  const dispatch = useDispatch();
+  const user = oAuth_reducer.authenticated;
+
   useEffect(() => {
-    console.log("in App.js useEFFECT");
-    dispatch_to_login_saga({ type: "GITHUB_OAUTH" });
+    //this just checks to see if there are existing cookies. Might be a better way...
+    console.log("APP", user);
+    dispatch({ type: "FETCH_USER" });
   }, []);
-
-  // const startState = {
-  // 	isLoggedIn: false,
-  // 	user: null,
-  // 	client_id: "",
-  // 	redirect_uri:"",
-  // 	client_secret: "",
-  // 	proxy_url: "",
-  // 	loaded: false,
-  //       };
-
-  //const [logInState, dispatch] = useReducer(loginMode, startState);
-
-  // const oAuth_data = useSelector(state => state.oAuth_reducer);
-  // console.log("logInState:::", oAuth_data)
-
-  //console.log("STATE", state)
-
-  // const dispatch = useDispatch();
-  // useEffect(() =>{
-  // 	dispatch({ type: "FETCH_USER" });
-  // })
 
   return (
     <Router>
       <Nav3 />
 
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/friends" component={FriendsPreviewPage} />
-        <ProtectedRoute exact path="/user" component={UserPage} />
-        <ProtectedRoute exact path="/lesson" component={LessonPage} />
-        <ProtectedRoute exact path="/history" component={HistoryPage} />
+        {/* <Route exact path="/load" component={RedirectLoader} /> */}
+        <ProtectedRoute
+          exact
+          path="/"
+          component={HomePage}
+          authenticated_user={{ authenticated: user }}
+        />
+        <ProtectedRoute
+          exact
+          path="/userProfile"
+          component={ProfilePage}
+          authenticated_user={{ authenticated: user }}
+        />
+        {/* <Route path="/login" component={LoginPage} /> */}
+        <Route path="/register" component={RegisterPage} />
+        <Route path="/friends" component={FriendsPreviewPage} />
+        {/* <ProtectedRoute path="/user" component={UserPage} />
+        <ProtectedRoute path="/lesson" component={LessonPage} />
+        <ProtectedRoute path="/history" component={HistoryPage} /> */}
         <Route exact path="/about" component={AboutPage} />
         <Route exact path="/pricing" component={PricingPage} />
         <Route render={() => <h1>404</h1>} />

@@ -1,38 +1,25 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
-// worker Saga: will be fired on "LOGIN" actions
-
-function* getLoginState(action) {
- console.log('getLoginState SAGA reached')
-  try{
-     const response = yield axios.get("/authenticate/userState");
-    
-     yield put({ type: "SET_SERVER_DATA", payload: response.data})
-  }catch (error) {
-    console.log("ERROR in getLoginState SAGA", error)
-  }  
-}
-
-
-
 function* loginUser(action) {
-  console.log("action object:::", action.payload.username)
+  console.log("action object:::");
   try {
     // clear any existing error on the login page
     yield put({ type: "CLEAR_LOGIN_ERROR" });
 
     const config = {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
       withCredentials: true,
     };
-     
-    
+
     // send the action.payload as the body
     // the config includes credentials which
     // allow the server session to recognize the user
-    
-      yield axios.post("/api/user/login", action.payload, config);
+
+    yield axios.get("/authenticate/login", config);
 
     // after the user has logged in
     // get the user information from the server
@@ -51,10 +38,7 @@ function* loginUser(action) {
     }
   }
 }
-function* handleRust(action){
-  axios.get("http://127.0.0.1:5050/from_app");
-  yield console.log("Rust endpoint worked");
-}
+
 // worker Saga: will be fired on "LOGOUT" actions
 function* logoutUser(action) {
   try {
@@ -67,7 +51,6 @@ function* logoutUser(action) {
     // allow the server session to recognize the user
     // when the server recognizes the user session
     // it will end the session
-    
 
     yield axios.post("/api/user/logout", config);
 
@@ -76,16 +59,15 @@ function* logoutUser(action) {
     // the client-side code know the user is logged out
     yield put({ type: "UNSET_USER" });
     yield put({ type: "CLEAR_ON_LOGOUT" });
+    yield put({ type: "LOGOUT_REDUCER" });
   } catch (error) {
     console.log("Error with user logout:", error);
   }
 }
 
 function* loginSaga() {
-  yield takeLatest("LOGIN", loginUser);
-  yield takeLatest("LOGOUT", logoutUser);
-  yield takeLatest("RUST", handleRust);
-  yield takeLatest("GITHUB_OAUTH", getLoginState )
+  yield takeLatest("LOGIN_WITH_GITHUB", loginUser);
+  yield takeLatest("SAGA_LOGOUT", logoutUser);
 }
 
 export default loginSaga;

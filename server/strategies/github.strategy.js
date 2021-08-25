@@ -1,73 +1,66 @@
+const passport = require("passport");
+const GitHubStrategy = require("passport-github2").Strategy;
+const pool = require("../modules/pool");
 
-const passport = require('passport');
-const GitHubStrategy = require('passport-github2').Strategy;
-const pool = require('../modules/pool');
+const { client_id, client_secret } = require("../config");
 
-
-
-
-passport.serializeUser(function(user, done) {
-  done(null, user);
+// this function stuffs a session cookie with the 'uid' from the database.
+passport.serializeUser((user, done) => {
+  console.log("4 INSIDE SERIALIZE", user.gitHubId);
+  done(null, user.profile.id);
 });
 
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
+// this fires on every request from the Browswer...need to authenticate 'uid' in database...seems really
+// inefficient. Will look into some sort of cache. Prob just want to check for 'does exist'.
+passport.deserializeUser((id, done) => {
+  console.log("DESEIRLADD", id);
+  pool
+    .query(`SELECT * FROM "session_user" WHERE "gitHubId" = $1;`, [id])
+    .then((result) => {
+      // Handle Errors
+      const user = result && result.rows && result.rows[0];
+
+      if (user) {
+        console.log("USER FOUND IN SERVER");
+        done(null, user);
+      } else {
+        // user not found
+        // done takes an error (null in this case) and a user (also null in this case)
+        // this will result in the server returning a 401 status code
+        done(null, null);
+      }
+    })
+    .catch((error) => {
+      done(error, null);
+    });
 });
 
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: client_id,
+      clientSecret: client_secret,
+      callbackURL: "http://localhost:5000/authenticate/auth/github/callback",
+    },
+    (accessToken, refreshToken, profile, done) => {
+      const { id } = profile;
+      const getUser = `SELECT * FROM "session_user" WHERE "session_user"."gitHubId" = $1;`;
+      pool.query(getUser, [id]).then((result) => {
+        const user = result && result.rows && result.rows[0];
 
-passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:5000/api/user/oauth/github"
-  },
-  async (accessToken, refreshToken, profile, done) => {
-    
-    console.log("profile._json", profile._json);
-    const userData = profile._json;
-    const userArray = [userData.id, userData.avatar_url, userData.name, userData.bio, userData.email, userData.hireable, userData.location ];
-    const checkIfExists = `SELECT EXISTS(SELECT 1 FROM "gitHubUser" WHERE "gitHubId" = $1);`; 
-    const existingUser = `SELECT * FROM "gitHubUser" WHERE "gitHubUser"."gitHubId" = $1;`;
-    
-    let user = await pool.query(checkIfExists , [userData.id]);
-    
-    
-    if(!user.rows[0].exists){
-	    console.log("IF ! USER")
-	    const gitHubQuery1 =`INSERT INTO "gitHubUser" ("gitHubId", "avatar", "name", "bio", "email", "hireable", "location") 
-	    VALUES ($1,$2,$3,$4,$5, $6, $7) RETURNING "id";`;
-	    const gitHubQuery = `INSERT INTO "gitHubUser" ("gitHubId", "avatar", "name", "bio", "email", "hireable", "location") 
-	    VALUES ($1,$2,$3,$4,$5, $6, $7) RETURNING "gitHubId", "avatar", "name", "bio", "email", "hireable", "location"`;
-	let userTrue = await pool.query(gitHubQuery1, userArray);
-	console.log("RETURNING ID", user.rows[0]);
-	
-    }else{
-	const foundUser = await pool.query(existingUser, [userData.id]);
-	done(null, {
-		user:foundUser.rows[0],
-		accessToken,
-		refreshToken
-	});
-
+        if (user) {
+          let data = result.rows[0];
+          done(null, data);
+        } else {
+          const create_user = `INSERT INTO "session_user" ("gitHubId", "profile")
+         VALUES ($1,$2) RETURNING *;`;
+          pool.query(create_user, [id, profile]).then((result) => {
+            done(null, result.rows[0]);
+          });
+        }
+      });
     }
-    
-  }
-));
-
+  )
+);
 
 module.exports = passport;
-
-
-
-
-// else{
-// 	const foundUser = await pool.query(existingUser, [userData.id]);
-// 	process.nextTick(function () {
-// 		console.log("ELSE NEXT TICK", user) 
-// 		return done(null, {
-// 			user:foundUser.rows[0],
-// 			accessToken,
-// 			refreshToken
-// 		});
-// 	      });
-
-//     }

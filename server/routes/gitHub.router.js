@@ -4,7 +4,6 @@ const Axios = require("axios");
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
-require("dotenv").config();
 
 router.post("/content", rejectUnauthenticated, (req, res) => {
   const content_url = `${req.body.url}?client_id=${process.env.GITHUB_ClIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}`;
@@ -76,6 +75,7 @@ router.post("/repos", rejectUnauthenticated, (req, res) => {
     });
 });
 router.post("/", rejectUnauthenticated, (req, res) => {
+  console.log("SESSION", req.session);
   const userInfo = `https://api.github.com/users/${req.body.userName}?client_id=${process.env.GITHUB_ClIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}`;
 
   const userInfo2 = `https://api.github.com/users/${req.body.userName}/hovercard?subject_type=repository?client_id=${process.env.GITHUB_ClIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}`;
@@ -86,7 +86,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 
   Axios.get(userInfo)
     .then((response) => {
-      console.log("pooooooooop", response.data);
+      // console.log("pooooooooop", response.data);
       res.send({
         loaded: true,
         data: response.data,

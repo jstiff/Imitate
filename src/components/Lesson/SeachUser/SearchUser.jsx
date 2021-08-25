@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../../../dist/style.css";
 //import "tailwindcss/style.css";
-const SearchUser = ({ name }) => {
-  const user = useSelector((state) => state.user);
+const SearchUser = () => {
+  const oAuth_data = useSelector((state) => state.oAuth_data);
+  // const { name } = oAuth_data.user;
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
 

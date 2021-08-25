@@ -1,124 +1,83 @@
 const express = require("express");
-const url = require('url');
 const router = express.Router();
-const config = require("../config");
-const FormData = require("form-data");
-const fetch = require("node-fetch");
-const axios = require("axios");
-const cors = require('cors');
-const { client_id, redirect_uri, client_secret, proxy_url, loaded } = require("../config");
+const gitHub_Strategy = require("../strategies/github.strategy");
+const cors = require("cors");
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
+const { home_redirect_url } = require("../config");
+const corsOptions1 = {
+  credentials: true,
+  origin: "http://localhost:5000/authenticate/auth/github",
+};
 
-router.get("/userState", (req,res) => {
-	
-	const initialState = {
-	client_id,
-	redirect_uri,
-	proxy_url,
-	loaded	
-      };
-      
-      res.send(initialState);
-      
-      })
-router.get("/", cors(), (req,res)=> {
-	// trying to initiate the oAuth process from here, but having no luck!!!
+// try to use middleware like rejectUnauthentiated
+router.get("/check", rejectUnauthenticated, (req, res) => {
+  console.log("NEW ROUTE");
+  res.status(200).json({
+    authenticated: true,
+    message: "user successfully authenticated",
+    user: req.user,
+    cookies: req.cookies,
+  });
+});
+router.get("/login/success", (req, res) => {
+  console.log("COME on Man!", req.cookies);
+});
 
+// const authCheck = (req, res, next) => {
+//   if (!req.cookies) {
+//     console.log("AUTH CHECK", req.cookies);
+//     res.send.json({ authenticated: false });
+//   } else {
+//     next();
+//   }
+// };
 
-	const oAuth_url = `https://github.com/login/oauth/authorize?scope=user&client_id=${client_id}`;
-	
-	axios.get(oAuth_url, {headers: {
-		"Access-Control-Allow-Origin" : "*",
-		"Content-type": "Application/json",
-		'Accept': "application/json",
-		}   
-	    }).then((response) => {
-		console.log("AXIOS GET")
-		res.redirect(url.format({
-			pathname:"authenticate/login/callback",
-			query:response,
-		}));
-	}).catch(error => console.log("FUCKING ERROR", error))
+// router.get("/login/success", authCheck, (req, res) => {
+//   console.log("*********/cookies************", req.cookies);
+//   if (req.user) {
+//     res.json({
+//       success: true,
+//       message: "user has successfully authenticated",
+//       user: req.user,
+//       cookies: req.cookies,
+//     });
+//   }
+// });
 
-	
-	
-	// const getCode = async () => {
-	// 	try {
-	// 	let temp = await axios.get(oAuth_url)
-	// 	console.log('INSIDE GETCODE', temp)
-	// 	  return temp
-	// 	} catch (error) {
-	// 	  console.error(error)
-	// 	}
-	//       }
-	//       res.redirect(url.format({
-	// 	 	pathname:"authenticate/login/callback",
-	// 	 	query:getCode(),
-	// 	}));
-})
+router.get("/login/failed", (req, res) => {
+  res.status(401).json({
+    success: false,
+    message: "user failed to authenticate.",
+  });
+});
 
-router.post("/login/callback", cors(), (req, res) =>  {
-	       
-		const {code} = req.body;
-		
-		if(!code){
-			return res.send({
-				success: false, 
-				message: "Error, req.body has no code object"
-			});
-	
-		}
-			
-		
-			
-		
-	
-	      
-		const data = new FormData();
-		
-		data.append("client_id", client_id);
-		data.append("client_secret", client_secret);
-		data.append("code", code);
-		data.append("redirect_uri", redirect_uri);
-	
-	
-		
-		// Request to exchange code for an access token
-		
-		  fetch(`https://github.com/login/oauth/access_token`, {
-			   method: "POST",
-			    body: data,
-		}).then((response) => {
-			return response.text()
-			 })
-		  .then((paramsString) => {
-	            console.log("POOOOOOP", paramsString)
-		    let params = new URLSearchParams(paramsString);
-		    const access_token = params.get("access_token");
-		    // What to do with the access_token????*********
+router.get(
+  "/login",
 
-				// session/token store??
+  gitHub_Strategy.authenticate("github", { scope: ["profile"] })
+);
 
-		    //******************************************* */
-		    // Request to return data of a user that has been authenticated
-		    return fetch(`https://api.github.com/user`, {
-			headers: {
-			  Authorization: `token ${access_token}`,
-			},
-		      });
-		    })
-		  .then((response) =>  response.json())
-		  .then((response) => {
-			  
-		     return res.status(200).json(response);
-		  })
-		  .catch((error) => {
-		    return res.status(400).json(error);
-	
-		});
-	        
-	});
+// passport will pass in a logged in user data through req.user
+router.get(
+  "/auth/github/callback",
 
+  gitHub_Strategy.authenticate("github", {
+    successRedirect: home_redirect_url,
+    failureRedirect: "/login/failed",
+  })
+);
 
 module.exports = router;
 
-
+// router.get("/userState", (req, res) => {
+// 	console.log("inside userSTate route");
+// 	const initialState = {
+// 	  client_id,
+// 	  home_redirect_url,
+// 	  proxy_url,
+// 	  loaded,
+// res.send(initialState);
+// });
+// 	};

@@ -109,7 +109,13 @@ function classNames(...classes) {
 }
 
 export default function Nav3() {
-  const oAuth_data = useSelector((state) => state.oAuth_reducer);
+  // const user_data = useSelector(
+  //   (state) => state.oAuth_reducer.user_profile.profile._json
+  // );
+  const oAuth_reducer = useSelector((state) => state.oAuth_reducer);
+  const { authenticated, user_profile } = oAuth_reducer;
+  //const { profile } = user_profile;
+  //const user_data = profile._json;
   const history = useHistory();
   const dispatch = useDispatch();
   // const ghLogin = () => {
@@ -117,10 +123,16 @@ export default function Nav3() {
   // 	dispatch({type: "GITHUB_OAUTH"})
   // }
 
+  const show_profile = (name) => {
+    let firstName = name.split(" ")[0];
+
+    history.push("./userProfile");
+  };
+
   const handleLogout = () => {
     alert("LOG out???");
     dispatch({
-      type: "LOGOUT",
+      type: "SAGA_LOGOUT",
     });
   };
   // const go_to_login = () => {
@@ -353,12 +365,13 @@ export default function Nav3() {
                   Sign in!
                 </span> */}
 
-                {oAuth_data.isLoggedIn ? (
+                {authenticated ? (
                   <>
                     <div>
                       <img
-                        src={oAuth_data.user.avatar_url}
+                        src={user_profile.avatar_url}
                         className="h-20 w-auto rounded-full inline-block rounded-md m-2"
+                        onClick={() => show_profile(user_profile.name)}
                       />
                     </div>
                     <div className="  lg:w-0 ml-10">

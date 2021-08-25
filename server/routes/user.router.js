@@ -4,43 +4,12 @@ const {
 } = require("../modules/authentication-middleware");
 const encryptLib = require("../modules/encryption");
 const pool = require("../modules/pool");
-const userStrategy = require("../strategies/user.strategy");
-const passport_oAuth = require("../strategies/github.strategy"); 
-// const cors = require('cors')
-// const corsOptions = {
-//      origin: '*',
-//    }
 const moment = require("moment");
-const { session } = require("../strategies/github.strategy");
-
 const router = express.Router();
-
- 
-
-
-
 
 // *************passport implementation of oAuth*************************
 
-// router.get("/auth/github",  
-//   passport_oAuth.authenticate('github', { session: false }));
-
-// router.get('/oauth/github', 
-//   passport_oAuth.authenticate('github'),{ session: false },
-//   function(req, res) {
-//     console.log("*********************************")
-//     console.log("GITHUB OAUTH req.user", req.user);
-//     console.log("*********************************") 
-    
-//     req.session.userId = req.user.user.gitHubId;
-//     req.session.accessToken = req.user.accessToken;
-//     req.session.refreshToken = req.user.refreshToken;
-//     res.sendStatus(200);
-//     res.redirect('http://localhost:3000');
-//   });
-
-
-router.put("/history/:id", (req, res) => {
+router.put("/history/:id", rejectUnauthenticated, (req, res) => {
   console.log("SERVER PUT ", req.body.data);
   const queryString = `UPDATE "metrics" SET "comments" = $1  WHERE id=$2;`;
   pool
@@ -53,7 +22,7 @@ router.put("/history/:id", (req, res) => {
     });
 });
 
-router.delete("/history/:id", (req, res) => {
+router.delete("/history/:id", rejectUnauthenticated, (req, res) => {
   console.log("SERVER poop", req.params);
   const queryString = `DELETE FROM "metrics" WHERE id=$1;`;
   pool
@@ -86,22 +55,13 @@ router.get("/history", rejectUnauthenticated, (req, res) => {
         data: result.rows,
       });
     })
-    .catch(() => {res.sendStatus(500)
-      console.log("eRror LLL HISTORY")
+    .catch(() => {
+      res.sendStatus(500);
+      console.log("eRror LLL HISTORY");
     });
 });
 
 // Handles Ajax request for user information if user is authenticated
-router.get("/", rejectUnauthenticated, (req, res) => {
-  // Send back user object from the session (previously queried from the database)
-  console.log("/cookies", req.cookies);
-  console.log("/body", req.body);
-  console.log("*********/user************", req.session);
-  console.log("*********/user************", req.cookies);
-  
-  
-  res.send(req.user);
-});
 
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
@@ -121,7 +81,7 @@ router.post("/register", (req, res, next) => {
 });
 
 router.post("/results", rejectUnauthenticated, async (req, res, next) => {
-  console.log("RESPONSE SERVER",req.body )
+  console.log("RESPONSE SERVER", req.body);
   const time = moment().format("LLLL");
   const fav_coder = req.body[0];
   const lessonUserId = req.user.id;
@@ -129,7 +89,7 @@ router.post("/results", rejectUnauthenticated, async (req, res, next) => {
   const chosen_file = req.body[2];
   const percent_correct = req.body[3];
   // inconst user_id = req.user.id;
-  console.log("%%%%",req.user);
+  console.log("%%%%", req.user);
   const connection = await pool.connect();
 
   try {
@@ -172,7 +132,6 @@ router.post("/results", rejectUnauthenticated, async (req, res, next) => {
       percent_correct.percent_correct,
       time,
       fileId,
-      
     ]);
 
     await connection.query("COMMIT;");
@@ -186,20 +145,10 @@ router.post("/results", rejectUnauthenticated, async (req, res, next) => {
   }
 });
 
-// Handles login form authenticate/login POST
-// userStrategy.authenticate('local') is middleware that we run on this route
-// this middleware will run our POST if successful
-// this middleware will send a 404 if not successful
-router.post("/login", userStrategy.authenticate("local"), (req, res) => {
-  console.log("/login..cookies", req.cookies);
-  console.log("body", req.body);
-  console.log("user", req.user);
-  res.sendStatus(200);
-});
-
 // clear all server session information about this user
 router.post("/logout", (req, res) => {
   // Use passport's built-in method to log out the user
+  console.log("LogOUT REACHED");
   req.logout();
   res.sendStatus(200);
 });
